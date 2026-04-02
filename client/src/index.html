@@ -8,6 +8,16 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
+  <script>
+    (function() {
+      var baseElement = document.querySelector('base');
+      if (baseElement) {
+        const pathname = window.location.pathname
+        const match = pathname.match(/^(.*?\/5000\/)/);
+        baseElement.setAttribute('href', match ? match[0] : '');
+      }
+    })();
+</script>
   <app-root></app-root>
 </body>
 </html>
