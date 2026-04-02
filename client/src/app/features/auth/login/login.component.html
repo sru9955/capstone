@@ -1,0 +1,65 @@
+<div class="auth-page">
+  <!-- Background decoration -->
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+
+  <div class="auth-container fade-in">
+    <div class="auth-logo">
+      <div class="logo-icon-svg">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+      </div>
+      <h1>HealthCare</h1>
+      <p>Appointment Management System</p>
+    </div>
+
+    <div class="auth-card glass">
+      <h2>Welcome Back</h2>
+      <p class="auth-subtitle">
+        {{ targetRole ? 'Sign in to your ' + (targetRole | titlecase) + ' account' : 'Sign in to your account' }}
+      </p>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label class="form-label">Username</label>
+          <div class="input-icon-wrap">
+            <span class="input-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            </span>
+            <input type="text" class="form-control" [class.is-invalid]="f['username'].invalid && f['username'].touched"
+                   formControlName="username" placeholder="Enter username" id="login-username">
+          </div>
+          <div class="invalid-feedback" *ngIf="f['username'].invalid && f['username'].touched">
+            Username must be at least 3 characters
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <div class="input-icon-wrap">
+            <span class="input-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            </span>
+            <input [type]="showPassword ? 'text' : 'password'"
+                   class="form-control" [class.is-invalid]="f['password'].invalid && f['password'].touched"
+                   formControlName="password" placeholder="Enter password" id="login-password">
+            <button type="button" class="toggle-pass" (click)="showPassword = !showPassword">
+              {{ showPassword ? 'Hide' : 'Show' }}
+            </button>
+          </div>
+          <div class="invalid-feedback" *ngIf="f['password'].invalid && f['password'].touched">
+            Password must be at least 6 characters
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block btn-lg" [disabled]="isLoading" id="login-submit">
+          <span *ngIf="isLoading" class="btn-spinner"></span>
+          {{ isLoading ? 'Signing in...' : 'Sign In' }}
+        </button>
+      </form>
+
+      <div class="auth-footer">
+        <p>Don't have an account? <a routerLink="/register">Create one &rarr;</a></p>
+      </div>
+    </div>
+  </div>
+</div>

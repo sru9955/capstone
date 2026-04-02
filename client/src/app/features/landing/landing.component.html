@@ -1,0 +1,100 @@
+<div class="landing-container">
+  <!-- Top Navigation (Landing Only) -->
+  <nav class="landing-nav">
+    <div class="brand">
+      <span class="brand-sub">Health</span><span class="brand-title">Care</span> Platform
+    </div>
+    <div class="nav-links">
+      <a routerLink="/">Home</a>
+      <a href="#roles">About</a>
+      <a href="#overview">Services</a>
+      <a routerLink="/login" class="btn btn-outline sm">Login</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>Unified Hospital Management</h1>
+      <p>A seamless, secure, and professional system connecting administrators, doctors, receptionists, and patients.</p>
+      <div class="hero-actions">
+        <a href="#roles" class="btn btn-primary">Access Your Portal</a>
+        <button class="btn btn-secondary" onclick="document.querySelector('.chatbot-trigger')?.click()">Chat with AI Assistant</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- System Overview -->
+  <section id="overview" class="services section bg-light">
+    <div class="container">
+      <h2 class="section-title">System Overview</h2>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          </div>
+          <h3>Secure Records</h3>
+          <p>End-to-end encrypted medical histories ensure patient data confidentiality and compliance.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          </div>
+          <h3>Real-time Updates</h3>
+          <p>Instant synchronization across all dashboards utilizing seamless server-sent events.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line></svg>
+          </div>
+          <h3>Advanced Analytics</h3>
+          <p>Comprehensive revenue tracking and performance metrics for hospital administration.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Role-Based Login -->
+  <section id="roles" class="roles section">
+    <div class="container">
+      <h2 class="section-title">Access Portals</h2>
+      <div class="grid-4">
+        <!-- Patient -->
+        <div class="card role-card">
+          <h3>Patient Portal</h3>
+          <p>Book appointments and view your medical records securely.</p>
+          <button class="btn btn-outline sm mt-3" routerLink="/login" [queryParams]="{role: 'PATIENT'}">Patient Login</button>
+        </div>
+        
+        <!-- Doctor -->
+        <div class="card role-card">
+          <h3>Doctor Portal</h3>
+          <p>Manage your schedule, update health records, and view patient history.</p>
+          <button class="btn btn-outline sm mt-3" routerLink="/login" [queryParams]="{role: 'DOCTOR'}">Doctor Login</button>
+        </div>
+        
+        <!-- Receptionist -->
+        <div class="card role-card">
+          <h3>Receptionist Portal</h3>
+          <p>Confirm appointments, oversee daily queue, and assist patients.</p>
+          <button class="btn btn-outline sm mt-3" routerLink="/login" [queryParams]="{role: 'RECEPTIONIST'}">Receptionist Login</button>
+        </div>
+        
+        <!-- Admin -->
+        <div class="card role-card">
+          <h3>Admin Portal</h3>
+          <p>Oversee hospital operations, manage staff, and track revenue.</p>
+          <button class="btn btn-outline sm mt-3" routerLink="/login" [queryParams]="{role: 'ADMIN'}">Admin Login</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 HealthCare Platform. All rights reserved.</p>
+    </div>
+  </footer>
+</div>

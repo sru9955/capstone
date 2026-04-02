@@ -1,0 +1,97 @@
+<div class="dashboard-wrapper">
+  <div class="header-banner">
+    <div class="container">
+      <h1>My Profile</h1>
+      <p>Manage your account settings and personal information.</p>
+    </div>
+  </div>
+
+  <div class="container content" *ngIf="!isLoading">
+    <div class="profile-grid">
+      <!-- Sidebar / Avatar -->
+      <div class="card profile-sidebar text-center">
+        <div class="avatar-container">
+          <img *ngIf="imagePreview || profileData?.profileImageUrl; else defaultAvatar" 
+               [src]="imagePreview || profileData?.profileImageUrl" 
+               alt="Profile" class="profile-img">
+          <ng-template #defaultAvatar>
+            <div class="profile-img placeholder shadow-md">{{ profileData?.username?.charAt(0)?.toUpperCase() || 'U' }}</div>
+          </ng-template>
+          
+          <label class="btn btn-outline btn-sm upload-btn mt-3 block" [class.loading]="isUploading">
+            <input type="file" (change)="onImageUpload($event)" accept="image/*" hidden>
+            {{ isUploading ? 'Uploading...' : 'Change Picture' }}
+          </label>
+        </div>
+
+        <h3 class="mt-4 mb-2 profile-name">{{ profileData?.name || profileData?.username }}</h3>
+        <span class="role-badge">{{ role | titlecase }}</span>
+        
+        <div class="member-since mt-4 text-muted">
+          <small>Username: {{ profileData?.username }}</small>
+        </div>
+      </div>
+
+      <!-- Main Form -->
+      <div class="card profile-main">
+        <h3 class="border-bottom pb-3 mb-4 section-heading">Personal Information</h3>
+        <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+          
+          <div class="form-row">
+            <div class="form-group flex-1">
+              <label>Full Name</label>
+              <input type="text" class="form-control" formControlName="name">
+            </div>
+            <div class="form-group flex-1">
+              <label>Email Address</label>
+              <input type="email" class="form-control" formControlName="email">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group flex-1">
+              <label>Phone Number</label>
+              <input type="text" class="form-control" formControlName="phone">
+            </div>
+          </div>
+
+          <!-- Doctor Specific -->
+          <ng-container *ngIf="role === 'DOCTOR'">
+            <h3 class="border-bottom pb-3 mb-4 mt-5 section-heading">Professional Details</h3>
+            <div class="form-row">
+              <div class="form-group flex-1">
+                <label>Specialty</label>
+                <input type="text" class="form-control" formControlName="specialty">
+              </div>
+              <div class="form-group flex-1">
+                <label>Consultation Fee ($)</label>
+                <input type="number" class="form-control" formControlName="consultationFee">
+              </div>
+            </div>
+          </ng-container>
+
+          <!-- Patient Specific -->
+          <ng-container *ngIf="role === 'PATIENT'">
+            <h3 class="border-bottom pb-3 mb-4 mt-5 section-heading">Patient Details</h3>
+            <div class="form-row">
+              <div class="form-group flex-1">
+                <label>Age</label>
+                <input type="number" class="form-control" formControlName="age">
+              </div>
+              <div class="form-group flex-1">
+                <label>Address</label>
+                <input type="text" class="form-control" formControlName="address">
+              </div>
+            </div>
+          </ng-container>
+
+          <div class="form-actions mt-5 border-top pt-4 text-right">
+            <button type="submit" class="btn btn-primary lg shadow-hover" [disabled]="profileForm.invalid || isSaving">
+              {{ isSaving ? 'Saving Changes...' : 'Save Changes' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

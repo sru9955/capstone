@@ -1,0 +1,79 @@
+<div class="page-header fade-in">
+  <div>
+    <h1 class="page-title">My Schedule</h1>
+    <p class="page-subtitle">View your patients and appointment details.</p>
+  </div>
+</div>
+
+<div class="card p-4 mb-4 fade-in" style="animation-delay: 0.1s;">
+  <form [formGroup]="dateForm" (ngSubmit)="filterResults()" class="grid-3 items-end">
+    <div class="form-group mb-0">
+      <label class="form-label text-sm font-semibold">Start Date</label>
+      <input type="date" formControlName="startDate" class="form-control">
+    </div>
+    
+    <div class="form-group mb-0">
+      <label class="form-label text-sm font-semibold">End Date</label>
+      <input type="date" formControlName="endDate" class="form-control">
+    </div>
+    
+    <div class="flex gap-2">
+      <button type="submit" class="btn btn-primary flex-1" [disabled]="isLoading">
+        <span *ngIf="!isLoading">Filter Dates</span>
+        <span *ngIf="isLoading" class="btn-spinner"></span>
+      </button>
+      <button type="button" class="btn btn-outline" (click)="resetFilter()">Clear</button>
+    </div>
+  </form>
+</div>
+
+<div class="card fade-in" style="animation-delay: 0.1s">
+  <div class="table-container">
+    <table *ngIf="appointments.length > 0; else noData">
+      <thead>
+        <tr>
+          <th>Date & Time</th>
+          <th>Patient Name</th>
+          <th>Status</th>
+          <th>Notes</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let apt of appointments">
+          <td>{{apt.appointmentTime | date:'medium'}}</td>
+          <td>{{apt.patient.name}}</td>
+          <td>
+            <span class="badge" 
+                  [ngClass]="{
+                    'badge-success': apt.status === 'COMPLETED',
+                    'badge-warning': apt.status === 'SCHEDULED' || apt.status === 'RESCHEDULED',
+                    'badge-danger': apt.status === 'CANCELLED'
+                  }">
+              {{apt.status}}
+            </span>
+          </td>
+          <td class="notes-cell" [title]="apt.notes">{{apt.notes || '-'}}</td>
+          <td>
+            <div class="action-buttons">
+              <button class="btn-icon" (click)="updateStatus(apt.id, 'COMPLETED')" *ngIf="apt.status !== 'COMPLETED'" title="Complete">
+                ✅
+              </button>
+              <button class="btn-icon" (click)="viewHistory(apt.patient.id)" title="View History">
+                📜
+              </button>
+              <button class="btn-icon" (click)="addMedicalRecord(apt)" *ngIf="apt.status === 'COMPLETED'" title="Add Record">
+                ✍️
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <ng-template #noData>
+      <div class="text-center" style="padding: 2rem; color: var(--text-muted);">
+        <p>You have no appointments scheduled.</p>
+      </div>
+    </ng-template>
+  </div>
+</div>

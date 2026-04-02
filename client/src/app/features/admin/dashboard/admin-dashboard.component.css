@@ -1,0 +1,26 @@
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 1.5rem;
+}
+@media (max-width: 768px) {
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.p-0 { padding: 0 !important; }
+.overflow-hidden { overflow: hidden; }
+.border-bottom { border-bottom: 1px solid var(--border); }
+.p-4 { padding: 1.5rem; }
+.p-3 { padding: 1rem; }
+.w-full { width: 100%; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+.border-collapse { border-collapse: collapse; }
+.text-sm { font-size: 0.875rem; }
+.font-semibold { font-weight: 600; }
+.text-gray-500 { color: #6b7280; }
+.hover-bg:hover { background-color: var(--bg-glass-hover); }
+.font-bold { font-weight: 700; }
+.text-xl { font-size: 1.25rem; }

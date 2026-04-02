@@ -1,0 +1,147 @@
+.document-wrapper {
+  background: #e2e8f0;
+  min-height: 100vh;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Inter', -apple-system, sans-serif;
+}
+
+.print-actions {
+  width: 100%;
+  max-width: 210mm;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+}
+.btn-primary { background: #6366f1; color: white; }
+.btn-outline-secondary { background: white; color: #475569; border: 1px solid #cbd5e1; }
+
+.pt-5 { padding-top: 3rem; }
+.text-center { text-align: center; }
+.text-danger { color: #ef4444; }
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+
+/* A4 CONTAINER STYLING */
+.print-container {
+  background: white;
+  width: 210mm;
+  min-height: 297mm;
+  padding: 20mm; /* standard A4 margins */
+  margin: 0 auto;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
+  color: #1e293b;
+}
+
+.prescription-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+.hospital-branding h2 { margin: 0 0 0.5rem 0; color: #0f172a; font-size: 1.5rem; }
+.hospital-branding p { margin: 0; color: #64748b; font-size: 0.9rem; }
+.prescription-title h1 { margin: 0 0 0.5rem 0; color: #6366f1; font-size: 2rem; letter-spacing: 2px; text-transform: uppercase; }
+.prescription-title p { margin: 0.2rem 0; font-size: 0.9rem; color: #475569; }
+
+.divider { border: 0; border-top: 2px solid #e2e8f0; margin: 1.5rem 0; }
+
+.info-section { margin-bottom: 2rem; }
+.info-section h3 { margin-top: 0; margin-bottom: 1rem; font-size: 1.1rem; color: #0f172a; text-transform: uppercase; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.5rem; }
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+}
+.info-item span { color: #64748b; font-weight: 500; width: 80px; display: inline-block; }
+.info-full { grid-column: 1 / -1; }
+
+.v-grid .info-item span { width: auto; margin-right: 0.5rem; }
+
+table.med-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+table.med-table th, table.med-table td {
+  padding: 0.75rem;
+  border: 1px solid #e2e8f0;
+  text-align: left;
+  font-size: 0.95rem;
+}
+table.med-table th { background: #f8fafc; font-weight: 600; color: #334155; }
+.no-data { color: #94a3b8; font-style: italic; }
+
+.notes-box {
+  background: #f8fafc;
+  padding: 1rem;
+  border-left: 4px solid #6366f1;
+  border-radius: 4px;
+}
+.notes-box p { margin: 0.5rem 0 0 0; font-size: 0.95rem; }
+
+.prescription-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 4rem;
+  padding-top: 2rem;
+}
+.doctor-info h3 { margin: 0 0 0.2rem 0; color: #0f172a; }
+.doctor-info p { margin: 0.2rem 0; color: #475569; font-size: 0.9rem; }
+
+.signature-box { text-align: center; }
+.signature-line { width: 250px; border-bottom: 1px solid #cbd5e1; margin-bottom: 0.5rem; }
+.signature-box p { margin: 0; color: #64748b; font-size: 0.9rem; }
+
+/* ACTUAL PRINT MEDIA QUERIES */
+@media print {
+  /* Hide the Angular framework layout wrapper entirely if present outside */
+  :host-context(app-root) app-navbar { display: none !important; }
+  :host-context(app-root) .sidebar { display: none !important; }
+  
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: white !important;
+  }
+  
+  .document-wrapper {
+    background: white !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .print-container {
+    box-shadow: none !important;
+    border: none !important;
+    width: 210mm !important;
+    min-height: 297mm !important;
+    padding: 20mm !important; /* ensures printer margins logic syncs */
+    background: white !important;
+  }
+
+  /* Force hiding browser specific controls or custom built actions */
+  .no-print {
+    display: none !important;
+  }
+
+  table.med-table th {
+    background: #e2e8f0 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

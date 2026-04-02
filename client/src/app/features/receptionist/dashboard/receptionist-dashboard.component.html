@@ -1,0 +1,85 @@
+<div class="page-header fade-in">
+  <div>
+    <h1 class="page-title">Hospital Overview</h1>
+    <p class="page-subtitle">Real-time statistics for all departments and appointments.</p>
+  </div>
+  <button class="btn btn-primary" routerLink="/receptionist/appointments">Manage Appointments</button>
+</div>
+
+<div class="stats-grid fade-in" style="animation-delay: 0.1s" *ngIf="stats">
+  <div class="stat-card" style="--stat-color: var(--primary);">
+    <div class="stat-icon" style="background: rgba(99, 102, 241, 0.15); color: var(--primary);">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>
+    </div>
+    <div class="stat-info">
+      <h3>{{stats.totalAppointments || 0}}</h3>
+      <p>Total Appointments</p>
+    </div>
+  </div>
+
+  <div class="stat-card" style="--stat-color: var(--info);">
+    <div class="stat-icon" style="background: rgba(59, 130, 246, 0.15); color: var(--info);">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+    </div>
+    <div class="stat-info">
+      <h3>{{stats.totalDoctors || 0}}</h3>
+      <p>Doctor Staff</p>
+    </div>
+  </div>
+
+  <div class="stat-card" style="--stat-color: var(--success);">
+    <div class="stat-icon" style="background: rgba(16, 185, 129, 0.15); color: var(--success);">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+    </div>
+    <div class="stat-info">
+      <h3>{{stats.totalPatients || 0}}</h3>
+      <p>Registered Patients</p>
+    </div>
+  </div>
+
+  <div class="stat-card" style="--stat-color: var(--warning);">
+    <div class="stat-icon" style="background: rgba(245, 158, 11, 0.15); color: var(--warning);">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+    </div>
+    <div class="stat-info">
+      <h3>{{stats.pendingAppointments || 0}}</h3>
+      <p>Pending / Scheduled</p>
+    </div>
+  </div>
+</div>
+
+<div class="card p-0 overflow-hidden fade-in" style="animation-delay: 0.2s">
+  <div class="card-header border-bottom flex justify-between items-center p-4">
+    <h2 class="card-title text-xl font-bold">Pending Payments & Invoices</h2>
+  </div>
+  <div class="table-container p-4">
+    <table class="w-full text-left border-collapse" *ngIf="pendingPayments.length > 0; else noPayments">
+      <thead>
+        <tr>
+          <th class="border-bottom p-3 text-sm font-semibold text-gray-500">Invoice ID</th>
+          <th class="border-bottom p-3 text-sm font-semibold text-gray-500">Amount Due</th>
+          <th class="border-bottom p-3 text-sm font-semibold text-gray-500">Status</th>
+          <th class="border-bottom p-3 text-sm font-semibold text-gray-500">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let payment of pendingPayments" class="border-bottom hover-bg">
+          <td class="p-3">#INV-{{payment.id}}</td>
+          <td class="p-3"><strong>${{payment.amount | number:'1.2-2'}}</strong></td>
+          <td class="p-3"><span class="badge badge-warning">{{payment.status || 'PENDING'}}</span></td>
+          <td class="p-3">
+            <button class="btn btn-sm btn-primary" [disabled]="isPaying" (click)="markPaid(payment.id)">
+              <span *ngIf="!isPaying">Mark Paid</span>
+              <span *ngIf="isPaying" class="btn-spinner"></span>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <ng-template #noPayments>
+      <div class="text-center" style="padding: 2rem; color: var(--text-muted);">
+        <p>No pending payments at this time. All caught up! 🎉</p>
+      </div>
+    </ng-template>
+  </div>
+</div>

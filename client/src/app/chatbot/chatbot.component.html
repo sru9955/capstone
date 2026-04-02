@@ -1,0 +1,56 @@
+<div class="chatbot-container" *ngIf="isLoggedIn">
+  <!-- Minimised Chatbot Button -->
+  <button class="chat-toggle-btn" (click)="toggleChat()" [class.open]="isOpen">
+    <svg *ngIf="!isOpen" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+    <svg *ngIf="isOpen" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+  </button>
+
+  <!-- Open Chat Window -->
+  <div class="chat-window" *ngIf="isOpen" class="chat-window fade-in">
+    <div class="chat-header">
+      <div class="header-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"></rect><circle cx="12" cy="5" r="2"></circle><path d="M12 7v4"></path></svg>
+      </div>
+      <div class="header-title">
+        <h3>AI Assistant</h3>
+        <p>Online & ready to help</p>
+      </div>
+    </div>
+    
+    <div class="chat-messages">
+      <div *ngFor="let msg of messages" class="message-wrapper">
+        <div class="message-bubble flex" [ngClass]="msg.type === 'user' ? 'msg-user' : 'msg-bot'">
+          <div class="bubble-content" [innerHTML]="msg.text | titlecase"></div>
+        </div>
+        
+        <!-- Interactive Elements -->
+        <div class="chat-interactive" *ngIf="msg.options && msg.options.length > 0">
+          <button *ngFor="let opt of msg.options" class="btn btn-outline sm m-1 interaction-btn"
+                  (click)="handleOptionSelect(opt, msg)">
+            {{ opt.label }}
+          </button>
+        </div>
+
+        <div class="chat-interactive w-100" *ngIf="msg.inputType === 'date'">
+          <input type="datetime-local" class="form-control" #dateInput>
+          <button class="btn btn-primary sm mt-2" (click)="handleDateSelect(dateInput.value, msg)">Confirm</button>
+        </div>
+      </div>
+      
+      <div class="typing-indicator" *ngIf="isTyping">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+
+    <div class="chat-input-area">
+      <input type="text" 
+             [(ngModel)]="messageText" 
+             (keyup.enter)="sendMessage()" 
+             placeholder="Type your message..." 
+             class="chat-input form-control">
+      <button class="btn btn-primary btn-send" (click)="sendMessage()" [disabled]="isTyping || !messageText.trim()">
+        Send
+      </button>
+    </div>
+  </div>
+</div>

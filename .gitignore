@@ -1,0 +1,21 @@
+# Node
+node_modules/
+dist/
+npm-debug.log
+
+# Java/Maven
+target/
+*.class
+*.jar
+*.war
+.mvn/
+
+# IDE/Editor
+.idea/
+.vscode/
+*.iml
+.DS_Store
+
+# Logs
+logs/
+*.log

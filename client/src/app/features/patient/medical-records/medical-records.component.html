@@ -1,0 +1,45 @@
+<div class="page-header fade-in">
+  <div>
+    <h1 class="page-title">Medical Records</h1>
+    <p class="page-subtitle">Your healthcare history and prescriptions.</p>
+  </div>
+</div>
+
+<div class="card fade-in" style="animation-delay: 0.1s">
+  <div class="table-container">
+    <table *ngIf="records.length > 0; else noData">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Doctor</th>
+          <th>Diagnosis</th>
+          <th>Prescription</th>
+          <th>Notes</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let record of records">
+          <td style="white-space: nowrap;">{{record.recordDate | date:'mediumDate'}}</td>
+          <td>Dr. {{record.doctor.name}}</td>
+          <td><span class="badge badge-info">{{record.diagnosis}}</span></td>
+          <td class="prescription-cell">
+            <span *ngIf="record.prescription && record.prescription.length > 0">{{record.prescription.length}} meds prescribed</span>
+            <span *ngIf="!record.prescription || record.prescription.length === 0">-</span>
+          </td>
+          <td class="notes-cell" [title]="record.notes">{{record.notes || '-'}}</td>
+          <td>
+            <button class="btn btn-sm btn-outline-primary" [routerLink]="['/print/prescription', record.id]">
+              🖨️ Print
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <ng-template #noData>
+      <div class="text-center" style="padding: 2rem; color: var(--text-muted);">
+        <p>No medical records found.</p>
+      </div>
+    </ng-template>
+  </div>
+</div>

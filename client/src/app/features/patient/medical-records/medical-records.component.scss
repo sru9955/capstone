@@ -1,0 +1,11 @@
+.notes-cell {
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.prescription-cell {
+  font-weight: 500;
+  color: var(--primary-light);
+}

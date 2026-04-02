@@ -1,0 +1,106 @@
+<div class="auth-page">
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+
+  <div class="auth-container wide fade-in">
+    <div class="auth-logo">
+      <span class="logo-emoji">🏥</span>
+      <h1>Create Account</h1>
+      <p>Join the Healthcare Management System</p>
+    </div>
+
+    <!-- Role Selection -->
+    <div class="role-selector">
+      <div *ngFor="let role of roles" class="role-card"
+           [class.selected]="selectedRole === role.value"
+           (click)="selectRole(role.value)" [id]="'role-' + role.value.toLowerCase()">
+        <span class="role-card-icon">{{ role.icon }}</span>
+        <span class="role-card-label">{{ role.label }}</span>
+        <span class="role-card-desc">{{ role.desc }}</span>
+      </div>
+    </div>
+
+    <div class="auth-card glass">
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input type="text" class="form-control" formControlName="name"
+                   [class.is-invalid]="f['name'].invalid && f['name'].touched"
+                   placeholder="Dr. John Doe" id="reg-name">
+            <div class="invalid-feedback" *ngIf="f['name'].invalid && f['name'].touched">Full name is required</div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Username</label>
+            <input type="text" class="form-control" formControlName="username"
+                   [class.is-invalid]="f['username'].invalid && f['username'].touched"
+                   placeholder="johndoe" id="reg-username">
+            <div class="invalid-feedback" *ngIf="f['username'].invalid && f['username'].touched">3-50 characters required</div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" formControlName="email"
+                   [class.is-invalid]="f['email'].invalid && f['email'].touched"
+                   placeholder="john@example.com" id="reg-email">
+            <div class="invalid-feedback" *ngIf="f['email'].invalid && f['email'].touched">Valid email required</div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <input [type]="showPassword ? 'text' : 'password'" class="form-control" formControlName="password"
+                   [class.is-invalid]="f['password'].invalid && f['password'].touched"
+                   placeholder="Min 6 characters" id="reg-password">
+            <div class="invalid-feedback" *ngIf="f['password'].invalid && f['password'].touched">At least 6 characters</div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Phone (Optional)</label>
+            <input type="text" class="form-control" formControlName="phone" placeholder="+91 9876543210" id="reg-phone">
+          </div>
+          <div class="form-group" *ngIf="selectedRole === 'PATIENT'">
+            <label class="form-label">Address (Optional)</label>
+            <input type="text" class="form-control" formControlName="address" placeholder="123 Main St" id="reg-address">
+          </div>
+        </div>
+
+        <!-- Doctor-specific fields -->
+        <div *ngIf="selectedRole === 'DOCTOR'" class="doctor-fields">
+          <div class="doctor-fields-header">
+            <span>👨‍⚕️ Doctor Information</span>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Specialty *</label>
+              <select class="form-control" formControlName="specialty"
+                      [class.is-invalid]="f['specialty'].invalid && f['specialty'].touched" id="reg-specialty">
+                <option value="">Select Specialty</option>
+                <option *ngFor="let s of specialties" [value]="s">{{ s }}</option>
+              </select>
+              <div class="invalid-feedback" *ngIf="f['specialty'].invalid && f['specialty'].touched">Specialty required for doctors</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Availability *</label>
+              <input type="text" class="form-control" formControlName="availability"
+                     [class.is-invalid]="f['availability'].invalid && f['availability'].touched"
+                     placeholder="Mon-Fri 9AM-5PM" id="reg-availability">
+              <div class="invalid-feedback" *ngIf="f['availability'].invalid && f['availability'].touched">Availability required</div>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block btn-lg" [disabled]="isLoading" id="reg-submit">
+          <span *ngIf="isLoading" class="btn-spinner"></span>
+          {{ isLoading ? 'Registering...' : '✅ Create Account' }}
+        </button>
+      </form>
+
+      <div class="auth-footer">
+        <p>Already have an account? <a routerLink="/login">Sign in →</a></p>
+      </div>
+    </div>
+  </div>
+</div>

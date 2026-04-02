@@ -1,0 +1,111 @@
+<div *ngIf="isLoading" class="no-print d-flex justify-content-center pt-5">
+  <div class="btn-spinner"></div>
+</div>
+
+<div *ngIf="!isLoading && !record" class="no-print text-center pt-5 text-danger">
+  Medical record not found or unauthorized to view.
+</div>
+
+<div *ngIf="!isLoading && record" class="document-wrapper">
+  
+  <div class="print-actions no-print">
+    <button class="btn btn-outline-secondary" routerLink="../../">← Back to Records</button>
+    <button class="btn btn-primary" (click)="printPrescription()">🖨️ Print Prescription</button>
+  </div>
+
+  <div class="print-container">
+    
+    <!-- HEADER -->
+    <header class="prescription-header">
+      <div class="hospital-branding">
+        <h2>LogiTrack Healthcare</h2>
+        <p>123 Medical Avenue, Tech City, ST 12345</p>
+        <p>Ph: (555) 123-4567 | care&#64;logitoxicity.com</p>
+      </div>
+      <div class="prescription-title">
+        <h1>PRESCRIPTION</h1>
+        <p><strong>Record ID:</strong> #{{record.id}}</p>
+        <p><strong>Date:</strong> {{record.recordDate | date:'mediumDate'}}</p>
+      </div>
+    </header>
+
+    <hr class="divider">
+
+    <!-- PATIENT INFO -->
+    <section class="info-section">
+      <h3>Patient Information</h3>
+      <div class="info-grid">
+        <div class="info-item"><span>Name:</span> {{record.patient.name}}</div>
+        <div class="info-item"><span>Age:</span> {{record.age || '-'}}</div>
+        <div class="info-item"><span>Gender:</span> {{record.patient.gender || 'Not specified'}}</div>
+        <div class="info-item"><span>Phone:</span> {{record.patient.user?.phone || record.patient.phone || '-'}}</div>
+        <div class="info-item"><span>Email:</span> {{record.patient.user?.email || '-'}}</div>
+        <div class="info-item info-full"><span>Address:</span> {{record.patient.address || '-'}}</div>
+        <div class="info-item info-full mt-1">
+          <span class="text-danger"><strong>Allergies:</strong></span> 
+          {{record.allergies || 'NKA (No Known Allergies)'}}
+        </div>
+      </div>
+    </section>
+
+    <!-- VITALS & DIAGNOSIS -->
+    <section class="info-section">
+      <h3>Clinical Summary</h3>
+      <div class="info-grid v-grid">
+        <div class="info-item"><span>Vitals:</span> BP: {{record.bp || '-'}}, Wt: {{record.weight || '-'}}kg, Ht: {{record.height || '-'}}cm</div>
+        <div class="info-item info-full"><span>Symptoms:</span> {{record.symptoms || '-'}}</div>
+        <div class="info-item info-full"><span><strong>Diagnosis:</strong></span> <strong>{{record.diagnosis || '-'}}</strong></div>
+      </div>
+    </section>
+
+    <!-- MEDICATION TABLE -->
+    <section class="medication-section">
+      <h3>&#8471;x Medication Plan</h3>
+      
+      <table class="med-table" *ngIf="record.prescription && record.prescription.length > 0; else noMeds">
+        <thead>
+          <tr>
+            <th>Medication Name</th>
+            <th>Dosage</th>
+            <th>Frequency</th>
+            <th>Route</th>
+            <th>Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let m of record.prescription">
+            <td><strong>{{m.medicationName}}</strong></td>
+            <td>{{m.dosage}}</td>
+            <td>{{m.frequency}}</td>
+            <td>{{m.route}}</td>
+            <td>{{m.purpose}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <ng-template #noMeds>
+        <p class="no-data">No medications prescribed during this visit.</p>
+      </ng-template>
+      
+      <div class="notes-box mt-2" *ngIf="record.notes">
+        <strong>Additional Instructions:</strong>
+        <p>{{record.notes}}</p>
+      </div>
+    </section>
+
+    <!-- DOCTOR INFO & SIGNATURE -->
+    <footer class="prescription-footer">
+      <div class="doctor-info">
+        <h3>Dr. {{record.doctor.name}}</h3>
+        <p>{{record.doctor.specialty}}</p>
+        <p>Ph: {{record.doctor.user?.phone || '-'}}</p>
+        <p>Email: {{record.doctor.user?.email || '-'}}</p>
+      </div>
+      <div class="signature-box">
+        <div class="signature-line"></div>
+        <p>Doctor's Signature</p>
+        <p>Date: {{record.recordDate | date:'mediumDate'}}</p>
+      </div>
+    </footer>
+
+  </div>
+</div>

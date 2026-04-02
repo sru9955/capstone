@@ -1,0 +1,65 @@
+.dashboard-wrapper {
+  background: #f8fafc;
+  min-height: calc(100vh - 70px);
+}
+.header-banner {
+  background: #0f172a;
+  color: white;
+  padding: 3rem 0;
+  border-bottom: 2px solid #6366f1;
+}
+.header-banner h1 { margin: 0 0 0.5rem 0; font-size: 2rem; font-weight: 700; }
+.header-banner p { color: #94a3b8; margin: 0; }
+.content { transform: translateY(-30px); }
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 2rem;
+}
+@media (max-width: 900px) { .profile-grid { grid-template-columns: 1fr; } }
+
+.card {
+  background: white; border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); padding: 2rem;
+}
+.profile-sidebar { padding: 3rem 2rem; }
+
+.avatar-container { text-align: center; }
+.profile-img {
+  width: 140px; height: 140px; border-radius: 50%;
+  object-fit: cover; border: 4px solid #eff6ff;
+  margin: 0 auto; display: block;
+}
+.placeholder {
+  background: linear-gradient(135deg, #6366f1, #a855f7); color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 4rem; font-weight: 700;
+}
+.upload-btn { display: inline-block; cursor: pointer; width: 100%; border-radius: 6px; padding: 0.5rem;}
+.loading { pointer-events: none; opacity: 0.7; }
+
+.profile-name { font-weight: 700; color: #1e293b; margin-top: 1.5rem; margin-bottom: 0.5rem; font-size: 1.4rem; }
+.role-badge { display: inline-block; padding: 0.4rem 1rem; border-radius: 50px; background: #e0e7ff; color: #4338ca; font-size: 0.85rem; font-weight: 600; }
+
+.section-heading {
+  font-size: 1.25rem; font-weight: 600; color: #0f172a;
+  border-bottom: 1px solid #e2e8f0; padding-bottom: 1rem; margin-bottom: 1.5rem; margin-top: 1.5rem;
+}
+.section-heading:first-child { margin-top: 0;}
+
+.form-row { display: flex; gap: 1.5rem; }
+@media (max-width: 600px) { .form-row { flex-direction: column; gap: 0; } }
+.flex-1 { flex: 1; }
+
+.form-group { margin-bottom: 1.5rem; }
+.form-group label { display: block; font-weight: 500; color: #475569; margin-bottom: 0.5rem; font-size: 0.9rem;}
+.form-control {
+  width: 100%; padding: 0.75rem 1rem; border: 1px solid #cbd5e1; border-radius: 8px;
+  font-size: 1rem; color: #1e293b; transition: all 0.2s; background: #f8fafc;
+}
+.form-control:focus { outline: none; border-color: #6366f1; background: white; box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1); }
+
+.form-actions {text-align: right;}
+.btn.lg { padding: 0.8rem 2rem; font-size: 1rem; }
+.shadow-hover:hover { box-shadow: 0 8px 15px -3px rgba(99, 102, 241, 0.4); transform: translateY(-2px); }
