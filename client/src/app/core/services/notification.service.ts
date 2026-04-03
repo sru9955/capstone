@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Notification } from '../../shared/models/notification.model';
 import { HttpService } from './http.service';
 import { AuthService } from './auth.service';
+import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class NotificationService implements OnDestroy {
@@ -28,7 +29,7 @@ export class NotificationService implements OnDestroy {
   private connectSse(): void {
     if (!this.auth.isLoggedIn()) return;
     const token = this.auth.getToken();
-    this.eventSource = new EventSource(`http://localhost:8080/api/notifications/stream?token=${token}`);
+    this.eventSource = new EventSource(`${environment.apiUrl}/notifications/stream?token=${token}`);
     
     this.eventSource.addEventListener('NOTIFICATION', (event: any) => {
       this.zone.run(() => {

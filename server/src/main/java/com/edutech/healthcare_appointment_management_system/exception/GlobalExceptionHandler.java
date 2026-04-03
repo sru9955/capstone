@@ -91,7 +91,14 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGeneralException(Exception ex) {
+        String msg = ex.getMessage();
+        if (ex.getCause() != null && ex.getCause().getMessage() != null) {
+            msg = ex.getCause().getMessage();
+        }
+        if (ex.getCause() != null && ex.getCause().getCause() != null && ex.getCause().getCause().getMessage() != null) {
+            msg = ex.getCause().getCause().getMessage();
+        }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new ErrorResponse("An internal error occurred: " + ex.getMessage(), 500, LocalDateTime.now()));
+                .body(new ErrorResponse("Database/Server Error: " + msg, 500, LocalDateTime.now()));
     }
 }

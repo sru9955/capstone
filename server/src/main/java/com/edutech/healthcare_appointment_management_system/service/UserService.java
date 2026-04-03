@@ -24,7 +24,10 @@ import com.edutech.healthcare_appointment_management_system.repository.UserRepos
 
 import java.util.Collections;
 
+import org.springframework.transaction.annotation.Transactional;
+
 @Service
+@Transactional
 public class UserService implements UserDetailsService {
 
     private static final Logger log = LoggerFactory.getLogger(UserService.class);

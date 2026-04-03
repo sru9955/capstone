@@ -34,7 +34,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         } else if (error.status === 404) {
           message = error.error?.message || 'Resource not found.';
         } else if (error.status === 500) {
-          message = 'Server error. Please try again later.';
+          message = error.error?.message || 'Server error. Please try again later.';
         }
         console.error('HTTP Error:', error);
         this.alert.error(message);
