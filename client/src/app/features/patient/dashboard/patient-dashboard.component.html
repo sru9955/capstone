@@ -1,0 +1,128 @@
+<div class="pd-page">
+
+  <!-- HERO -->
+  <div class="pd-hero">
+    <div class="pd-hero-top">
+      <div class="pd-hero-left">
+        <div class="pd-avatar">{{ patientInitial }}</div>
+        <div>
+          <p class="pd-welcome">Welcome back</p>
+          <h2 class="pd-name">{{ patientProfile?.name || 'Patient' }}</h2>
+          <small class="pd-date">{{ todayDate }}</small>
+        </div>
+      </div>
+      <button class="pd-book-btn" (click)="goToBookAppointment()">+ Book Appointment</button>
+    </div>
+
+    <div class="pd-stats-bar">
+      <div class="pd-stat-item">
+        <span class="pd-stat-num">{{ allAppointments.length }}</span>
+        <span class="pd-stat-label">Total</span>
+      </div>
+      <div class="pd-stat-divider"></div>
+      <div class="pd-stat-item">
+        <span class="pd-stat-num">{{ upcomingCount }}</span>
+        <span class="pd-stat-label">Upcoming</span>
+      </div>
+      <div class="pd-stat-divider"></div>
+      <div class="pd-stat-item">
+        <span class="pd-stat-num">{{ completedCount }}</span>
+        <span class="pd-stat-label">Completed</span>
+      </div>
+      <div class="pd-stat-divider"></div>
+      <div class="pd-stat-item">
+        <span class="pd-stat-num">{{ medicalRecords.length }}</span>
+        <span class="pd-stat-label">Records</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOTTOM GRID -->
+  <div class="pd-bottom-grid">
+
+    <!-- RECENT APPOINTMENTS -->
+    <div class="pd-panel">
+      <div class="pd-panel-header">
+        <h3>Recent Appointments</h3>
+        <button class="pd-view-all" (click)="goToAllAppointments()">View All</button>
+      </div>
+
+      <div *ngIf="recentAppointments.length === 0" class="pd-empty">
+        No appointments found.
+      </div>
+
+      <div *ngFor="let a of recentAppointments" class="pd-apt-row">
+        <div class="pd-apt-avatar">{{ a?.doctor?.name?.charAt(0) }}</div>
+        <div class="pd-apt-info">
+          <div class="pd-apt-doc-name">{{ a?.doctor?.name }}</div>
+          <div class="pd-apt-specialty">{{ a?.doctor?.specialty }}</div>
+        </div>
+        <div class="pd-apt-time">{{ a?.appointmentTime | date:'MMM d, h:mm a' }}</div>
+        <span
+          class="pd-status-badge"
+          [class.scheduled]="a?.status === 'SCHEDULED'"
+          [class.completed]="a?.status === 'COMPLETED'"
+          [class.cancelled]="a?.status === 'CANCELLED'"
+        >
+          {{ a?.status }}
+        </span>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="pd-right-col">
+
+      <!-- PROFILE -->
+      <div class="pd-panel">
+        <h3>Profile</h3>
+        <p class="pd-profile-name">{{ patientProfile?.name }}</p>
+        <p class="pd-profile-phone">{{ patientProfile?.phone }}</p>
+      </div>
+
+      <!-- VITALS -->
+      <div class="pd-panel" *ngIf="latestVitals as v">
+        <h3>Latest Vitals</h3>
+        <div class="pd-vitals-grid">
+          <div class="pd-vital">
+            <h4>{{ v.age || '-' }}</h4>
+            <p>Age</p>
+          </div>
+          <div class="pd-vital">
+            <h4>{{ v.weight || '-' }}</h4>
+            <p>Weight (kg)</p>
+          </div>
+          <div class="pd-vital">
+            <h4>{{ v.height || '-' }}</h4>
+            <p>Height (cm)</p>
+          </div>
+          <div class="pd-vital">
+            <h4>{{ v.bp || '-' }}</h4>
+            <p>Blood Pressure</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- BMI -->
+      <div class="pd-panel" *ngIf="bmi !== null">
+        <h3>BMI: {{ bmi }}</h3>
+        <p class="pd-bmi-category">{{ bmiCategory }}</p>
+        <div class="pd-bmi-scale">
+          <div class="pd-bmi-under"></div>
+          <div class="pd-bmi-normal"></div>
+          <div class="pd-bmi-over"></div>
+          <div class="pd-bmi-obese"></div>
+          <div class="pd-bmi-marker" [style.left]="bmiMarkerLeft"></div>
+        </div>
+        <div class="pd-bmi-labels">
+          <span>Under</span>
+          <span>Normal</span>
+          <span>Over</span>
+          <span>Obese</span>
+        </div>
+        <small class="pd-bmi-status">{{ bmiStatus }}</small>
+      </div>
+
+    </div>
+  </div>
+
+</div>

@@ -1,50 +1,429 @@
-.p-0 { padding: 0 !important; }
-.overflow-hidden { overflow: hidden; }
-.border-bottom { border-bottom: 1px solid var(--border); }
-.p-4 { padding: 1.5rem; }
-.p-3 { padding: 1rem; }
-.w-full { width: 100%; }
-.text-left { text-align: left; }
-.text-right { text-align: right; }
-.border-collapse { border-collapse: collapse; }
-.text-sm { font-size: 0.875rem; }
-.font-semibold { font-weight: 600; }
-.text-gray-500 { color: #6b7280; }
-.text-gray-600 { color: #4b5563; }
-.text-gray-800 { color: #1f2937; }
-.hover-bg:hover { background-color: var(--bg-glass-hover); }
-.font-bold { font-weight: 700; }
-.text-xl { font-size: 1.25rem; }
-.text-2xl { font-size: 1.5rem; }
-.grid { display: grid; }
-.grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
-.gap-6 { gap: 1.5rem; }
-.bg-gray-50 { background-color: #f9fafb; }
-.border-gray-100 { border-color: #f3f4f6; }
-.border { border-width: 1px; }
-.rounded-xl { border-radius: 0.75rem; }
-.rounded-full { border-radius: 9999px; }
-.uppercase { text-transform: uppercase; }
-.tracking-wide { letter-spacing: 0.025em; }
-.font-normal { font-weight: 400; }
-.bg-indigo-100 { background-color: #e0e7ff; }
-.text-indigo-600 { color: #4f46e5; }
-.bg-emerald-100 { background-color: #d1fae5; }
-.text-emerald-600 { color: #059669; }
-.bg-amber-100 { background-color: #fef3c7; }
-.text-amber-600 { color: #d97706; }
-.mr-4 { margin-right: 1rem; }
-.ml-2 { margin-left: 0.5rem; }
-.mt-1 { margin-top: 0.25rem; }
-.block { display: block; }
-.transition { transition: all 0.2s; }
-.flex { display: flex; }
-.items-center { align-items: center; }
-.py-12 { padding-top: 3rem; padding-bottom: 3rem; }
-.mb-4 { margin-bottom: 1rem; }
-.text-lg { font-size: 1.125rem; }
-.justify-center { justify-content: center; }
+// ─── Design Tokens ────────────────────────────────────────
+$bg-gradient:   linear-gradient(135deg, #1a1060 0%, #2d1b8e 40%, #1e1565 100%);
+$panel-bg:      rgba(255, 255, 255, 0.07);
+$border:        rgba(255, 255, 255, 0.10);
+$white:         #ffffff;
+$muted:         rgba(255, 255, 255, 0.55);
+$accent:        #7c6fe0;
+$radius-lg:     16px;
+$radius-md:     14px;
+$radius-sm:     10px;
 
-@media (min-width: 768px) {
-  .md-grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+// ─── Page Shell ───────────────────────────────────────────
+.pd-page {
+  min-height: 100vh;
+  background: $bg-gradient;
+  padding: 28px 32px;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  color: $white;
+  box-sizing: border-box;
+}
+
+// ─── Hero ─────────────────────────────────────────────────
+.pd-hero {
+  background: rgba(255, 255, 255, 0.10);
+  border: 1px solid $border;
+  border-radius: $radius-lg;
+  padding: 28px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  backdrop-filter: blur(8px);
+}
+
+.pd-hero-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.pd-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7c6fe0, #5b4fcf);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  font-weight: 700;
+  color: $white;
+  flex-shrink: 0;
+  box-shadow: 0 4px 16px rgba(124, 111, 224, 0.45);
+}
+
+.pd-welcome {
+  margin: 0;
+  font-size: 13px;
+  color: $muted;
+  font-weight: 400;
+}
+
+.pd-name {
+  margin: 4px 0 2px;
+  font-size: 28px;
+  font-weight: 700;
+  color: $white;
+}
+
+.pd-date {
+  font-size: 13px;
+  color: $muted;
+}
+
+.pd-book-btn {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: $radius-sm;
+  color: $white;
+  padding: 10px 22px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: background 0.2s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.22);
+  }
+}
+
+// ─── Stats Bar ────────────────────────────────────────────
+.pd-stats-bar {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid $border;
+  border-radius: $radius-md;
+  padding: 20px 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 16px;
+  backdrop-filter: blur(6px);
+}
+
+.pd-stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.pd-stat-num {
+  font-size: 26px;
+  font-weight: 700;
+  color: $white;
+  line-height: 1;
+}
+
+.pd-stat-label {
+  font-size: 13px;
+  color: $muted;
+}
+
+.pd-stat-divider {
+  width: 1px;
+  height: 36px;
+  background: $border;
+}
+
+// ─── Stat Cards ───────────────────────────────────────────
+.pd-card-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.pd-stat-card {
+  background: $panel-bg;
+  border: 1px solid $border;
+  border-radius: $radius-md;
+  padding: 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  backdrop-filter: blur(6px);
+}
+
+.pd-card-num {
+  font-size: 28px;
+  font-weight: 700;
+  color: $white;
+  line-height: 1;
+}
+
+.pd-card-label {
+  font-size: 13px;
+  color: $muted;
+}
+
+// ─── Bottom Grid ──────────────────────────────────────────
+.pd-bottom-grid {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 14px;
+}
+
+// ─── Panel (shared) ───────────────────────────────────────
+.pd-panel {
+  background: $panel-bg;
+  border: 1px solid $border;
+  border-radius: $radius-md;
+  padding: 22px 24px;
+  backdrop-filter: blur(6px);
+  margin-bottom: 14px;
+
+  h3 {
+    margin: 0 0 4px;
+    font-size: 16px;
+    font-weight: 600;
+    color: $white;
+  }
+}
+
+.pd-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+
+  h3 { margin: 0; }
+}
+
+.pd-view-all {
+  background: transparent;
+  border: none;
+  color: $accent;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+
+// ─── Appointment Row ──────────────────────────────────────
+.pd-apt-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 0;
+  border-bottom: 1px solid $border;
+
+  &:last-child { border-bottom: none; }
+}
+
+.pd-apt-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(124, 111, 224, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: $white;
+  flex-shrink: 0;
+  text-transform: lowercase;
+}
+
+.pd-apt-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.pd-apt-doc-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: $white;
+}
+
+.pd-apt-specialty {
+  font-size: 12px;
+  color: $muted;
+  margin-top: 2px;
+}
+
+.pd-apt-time {
+  font-size: 13px;
+  color: $muted;
+  white-space: nowrap;
+}
+
+// ─── Status Badge ─────────────────────────────────────────
+.pd-status-badge {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+
+  &.scheduled {
+    background: rgba(124, 111, 224, 0.30);
+    color: #c4bcf7;
+    border: 1px solid rgba(124, 111, 224, 0.40);
+  }
+
+  &.completed {
+    background: rgba(52, 211, 153, 0.20);
+    color: #6ee7b7;
+    border: 1px solid rgba(52, 211, 153, 0.35);
+  }
+
+  &.cancelled {
+    background: rgba(248, 113, 113, 0.20);
+    color: #fca5a5;
+    border: 1px solid rgba(248, 113, 113, 0.35);
+  }
+}
+
+// ─── Right Column ─────────────────────────────────────────
+.pd-right-col {
+  display: flex;
+  flex-direction: column;
+}
+
+// ─── Profile ──────────────────────────────────────────────
+.pd-profile-name {
+  margin: 8px 0 4px;
+  font-size: 15px;
+  font-weight: 600;
+  color: $white;
+}
+
+.pd-profile-phone {
+  margin: 0;
+  font-size: 13px;
+  color: $muted;
+}
+
+// ─── Vitals ───────────────────────────────────────────────
+.pd-vitals-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.pd-vital {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: $radius-sm;
+  padding: 12px 14px;
+  border: 1px solid $border;
+
+  h4 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: $white;
+  }
+
+  p {
+    margin: 4px 0 0;
+    font-size: 11px;
+    color: $muted;
+  }
+}
+
+// ─── BMI ──────────────────────────────────────────────────
+.pd-bmi-category {
+  margin: 4px 0 12px;
+  font-size: 14px;
+  color: $muted;
+}
+
+.pd-bmi-scale {
+  position: relative;
+  height: 10px;
+  border-radius: 999px;
+  overflow: visible;
+  display: flex;
+  margin-bottom: 6px;
+}
+
+.pd-bmi-under  { flex: 1; background: #60a5fa; border-radius: 999px 0 0 999px; }
+.pd-bmi-normal { flex: 1; background: #34d399; }
+.pd-bmi-over   { flex: 1; background: #fbbf24; }
+.pd-bmi-obese  { flex: 1; background: #f87171; border-radius: 0 999px 999px 0; }
+
+.pd-bmi-marker {
+  position: absolute;
+  top: -3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: $white;
+  border: 2px solid #1a1060;
+  transform: translateX(-50%);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+  z-index: 1;
+}
+
+.pd-bmi-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: $muted;
+  margin-top: 6px;
+}
+
+// ─── Responsive ───────────────────────────────────────────
+@media (max-width: 900px) {
+  .pd-bottom-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pd-card-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .pd-page { padding: 16px; }
+  .pd-hero { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .pd-stats-bar { padding: 16px; }
+  .pd-card-row { grid-template-columns: repeat(2, 1fr); }
+}
+
+.pd-hero {
+  background: rgba(255, 255, 255, 0.10);
+  border: 1px solid $border;
+  border-radius: $radius-lg;
+  padding: 28px 32px 0;
+  margin-bottom: 20px;
+  backdrop-filter: blur(8px);
+}
+
+.pd-hero-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.pd-stats-bar {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border-top: 1px solid $border;
+  padding: 16px 0;
+}
+
+.pd-stat-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  padding: 0 24px;
+
+  &:first-child { padding-left: 0; }
+}
+
+.pd-stat-divider {
+  width: 1px;
+  height: 32px;
+  background: $border;
+  flex-shrink: 0;
 }

@@ -1,4 +1,5 @@
 export interface Appointment {
+  prescription: string;
   id: number;
   patient: Patient;
   doctor: Doctor;
