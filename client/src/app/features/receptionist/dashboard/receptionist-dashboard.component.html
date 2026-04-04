@@ -1,9 +1,9 @@
 <div class="page-header fade-in">
   <div>
-    <h1 class="page-title">Hospital Overview</h1>
-    <p class="page-subtitle">Real-time statistics for all departments and appointments.</p>
+    <h1 class="page-title text-white">Hospital Overview</h1>
+    <p class="page-subtitle text-muted-light">Real-time statistics for all departments and appointments.</p>
   </div>
-  <button class="btn btn-primary" routerLink="/receptionist/appointments">Manage Appointments</button>
+  <button class="btn btn-primary shadow-hover" routerLink="/receptionist/appointments">Manage Appointments</button>
 </div>
 
 <div class="stats-grid fade-in" style="animation-delay: 0.1s" *ngIf="stats">
@@ -48,27 +48,28 @@
   </div>
 </div>
 
-<div class="card p-0 overflow-hidden fade-in" style="animation-delay: 0.2s">
-  <div class="card-header border-bottom flex justify-between items-center p-4">
-    <h2 class="card-title text-xl font-bold">Pending Payments & Invoices</h2>
+<div class="card dark-glass p-0 overflow-hidden fade-in" style="animation-delay: 0.2s">
+  <div class="card-header border-bottom-dark flex justify-between items-center p-4">
+    <h2 class="card-title text-white text-xl font-bold">Pending Payments & Invoices</h2>
   </div>
+  
   <div class="table-container p-4">
-    <table class="w-full text-left border-collapse" *ngIf="pendingPayments.length > 0; else noPayments">
+    <table class="w-full text-left border-collapse" *ngIf="pendingPayments && pendingPayments.length > 0; else noPayments">
       <thead>
         <tr>
-          <th class="border-bottom p-3 text-sm font-semibold text-gray-500">Invoice ID</th>
-          <th class="border-bottom p-3 text-sm font-semibold text-gray-500">Amount Due</th>
-          <th class="border-bottom p-3 text-sm font-semibold text-gray-500">Status</th>
-          <th class="border-bottom p-3 text-sm font-semibold text-gray-500">Actions</th>
+          <th class="border-bottom-dark p-3 text-sm font-semibold text-muted-light">Invoice ID</th>
+          <th class="border-bottom-dark p-3 text-sm font-semibold text-muted-light">Amount Due</th>
+          <th class="border-bottom-dark p-3 text-sm font-semibold text-muted-light">Status</th>
+          <th class="border-bottom-dark p-3 text-sm font-semibold text-muted-light">Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let payment of pendingPayments" class="border-bottom hover-bg">
-          <td class="p-3">#INV-{{payment.id}}</td>
-          <td class="p-3"><strong>${{payment.amount | number:'1.2-2'}}</strong></td>
+        <tr *ngFor="let payment of pendingPayments" class="border-bottom-dark hover-bg-dark">
+          <td class="p-3 text-light">#INV-{{payment.id}}</td>
+          <td class="p-3 text-light"><strong>₹{{payment.amount | number:'1.2-2'}}</strong></td>
           <td class="p-3"><span class="badge badge-warning">{{payment.status || 'PENDING'}}</span></td>
           <td class="p-3">
-            <button class="btn btn-sm btn-primary" [disabled]="isPaying" (click)="markPaid(payment.id)">
+            <button class="btn btn-sm btn-primary shadow-hover" [disabled]="isPaying" (click)="markPaid(payment.id)">
               <span *ngIf="!isPaying">Mark Paid</span>
               <span *ngIf="isPaying" class="btn-spinner"></span>
             </button>
@@ -76,9 +77,20 @@
         </tr>
       </tbody>
     </table>
+
     <ng-template #noPayments>
-      <div class="text-center" style="padding: 2rem; color: var(--text-muted);">
-        <p>No pending payments at this time. All caught up! 🎉</p>
+      <div class="text-center py-12 text-muted-light">
+        <div class="flex justify-center mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#6366f1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.5));">
+            <path d="M6 3h12"></path>
+            <path d="M6 8h12"></path>
+            <path d="m6 13 8.5 8"></path>
+            <path d="M6 13h3"></path>
+            <path d="M9 13c6.667 0 6.667-10 0-10"></path>
+          </svg>
+        </div>
+        <p class="text-lg font-medium text-light" style="letter-spacing: 0.5px;">No pending payments at this time.</p>
+        <p class="text-sm mt-1" style="opacity: 0.7;">All caught up! 🎉</p>
       </div>
     </ng-template>
   </div>

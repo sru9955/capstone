@@ -2,14 +2,43 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>L & T Health Care</title>
-  <base href="./">
+  <title>HealthcareFrontend</title>
+ 
+  <!-- Default base for normal local/dev hosting -->
+  <base href="/" />
+ 
+  <!-- If app is hosted under someprefix/5000/, adjust base early -->
+  <script>
+    (function () {
+      var baseElement = document.querySelector('base');
+      if (!baseElement) return;
+ 
+      var pathname = window.location.pathname || "";
+ 
+      // Detect prefix that includes "/5000/" (example: /something/5000/)
+      var match = pathname.match(/^(.*?\/5000\/)/);
+ 
+      // IMPORTANT: fallback must be "/" (never "")
+      baseElement.setAttribute('href', match ? match[0] : '/');
+    })();
+  </script>
+ 
   <meta name="viewport" content="width=device-width, initial-scale=1">
+ 
+  <!-- Bootstrap CDN is absolute, so it won't break with base changes -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+    crossorigin="anonymous"
+  >
+ 
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
+ 
 <body>
-  <script src="https://unpkg.com/@phosphor-icons/web"></script>
   <app-root></app-root>
-
 </body>
 </html>
+ 
+ 

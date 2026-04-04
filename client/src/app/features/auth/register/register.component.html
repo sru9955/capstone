@@ -3,18 +3,17 @@
   <div class="bg-orb orb-2"></div>
 
   <div class="auth-container wide fade-in">
+    
     <div class="auth-logo">
-      <span class="logo-emoji">🏥</span>
       <h1>Create Account</h1>
       <p>Join the Healthcare Management System</p>
     </div>
 
-    <!-- Role Selection -->
     <div class="role-selector">
       <div *ngFor="let role of roles" class="role-card"
            [class.selected]="selectedRole === role.value"
            (click)="selectRole(role.value)" [id]="'role-' + role.value.toLowerCase()">
-        <span class="role-card-icon">{{ role.icon }}</span>
+        <img [src]="role.icon" [alt]="role.label" class="role-card-icon-img">
         <span class="role-card-label">{{ role.label }}</span>
         <span class="role-card-desc">{{ role.desc }}</span>
       </div>
@@ -67,7 +66,6 @@
           </div>
         </div>
 
-        <!-- Doctor-specific fields -->
         <div *ngIf="selectedRole === 'DOCTOR'" class="doctor-fields">
           <div class="doctor-fields-header">
             <span>👨‍⚕️ Doctor Information</span>
@@ -92,10 +90,13 @@
           </div>
         </div>
 
-        <button type="submit" class="btn btn-primary btn-block btn-lg" [disabled]="isLoading" id="reg-submit">
-          <span *ngIf="isLoading" class="btn-spinner"></span>
-          {{ isLoading ? 'Registering...' : '✅ Create Account' }}
-        </button>
+        <div class="submit-wrapper">
+          <button type="submit" class="btn btn-primary reg-submit-btn" [disabled]="isLoading" id="reg-submit">
+            <span *ngIf="isLoading" class="btn-spinner"></span>
+            {{ isLoading ? 'Registering...' : 'Create Account' }}
+          </button>
+        </div>
+
       </form>
 
       <div class="auth-footer">

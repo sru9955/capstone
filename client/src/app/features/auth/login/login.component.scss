@@ -29,15 +29,45 @@
   border-radius: 20px;
   background: rgba(22, 33, 62, 0.8);
 }
-.auth-card h2 { font-size: 1.5rem; text-align: center; margin-bottom: 0.25rem; }
+
+.auth-card h2 { 
+  font-size: 1.5rem; 
+  text-align: center; 
+  margin-bottom: 0.25rem; 
+  color: #ffffff; 
+}
+
 .auth-subtitle { text-align: center; color: #64748b; font-size: 0.875rem; margin-bottom: 1.75rem; }
 
 .input-icon-wrap { position: relative; }
-.input-icon { position: absolute; left: 0.875rem; top: 50%; transform: translateY(-50%); font-size: 1rem; }
+.input-icon { position: absolute; left: 0.875rem; top: 50%; transform: translateY(-50%); font-size: 1rem; color: #94a3b8; }
 .input-icon-wrap .form-control { padding-left: 2.75rem; }
+
+/* Keep text from sliding under our custom eye icon */
+.password-input {
+  padding-right: 40px !important; 
+}
+
+/* Hide the default framework validation icon on the password field */
+.input-icon-wrap .password-input.is-invalid {
+  background-image: none !important;
+}
+
+/* FIX: Hide the browser's native default eye icon (Microsoft Edge/IE) */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none !important;
+}
+
 .toggle-pass {
   position: absolute; right: 0.875rem; top: 50%; transform: translateY(-50%);
-  background: none; border: none; cursor: pointer; font-size: 1rem; padding: 0;
+  background: none; border: none; cursor: pointer; padding: 0;
+  color: #94a3b8; display: flex; align-items: center; justify-content: center;
+  transition: color 0.2s ease;
+}
+
+.toggle-pass:hover {
+  color: #c0c6d4;
 }
 
 .btn-spinner {
@@ -45,9 +75,14 @@
   border: 2px solid rgba(255,255,255,0.3);
   border-top-color: white; border-radius: 50%;
   animation: spin 0.8s linear infinite;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 .auth-footer { text-align: center; margin-top: 1.5rem; }
 .auth-footer p { color: #64748b; font-size: 0.875rem; }
-.auth-footer a { color: #a5b4fc; font-weight: 600; }
-.auth-footer a:hover { color: #6366f1; }
+.auth-footer a { color: #a5b4fc; font-weight: 600; text-decoration: none; }
+.auth-footer a:hover { color: #6366f1; text-decoration: underline; }

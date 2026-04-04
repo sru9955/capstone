@@ -1,41 +1,42 @@
 <div class="page-header fade-in">
   <div>
-    <h1 class="page-title">Manage Appointments</h1>
-    <p class="page-subtitle">Oversee all hospital appointments across departments.</p>
+    <h1 class="page-title text-white">Manage Appointments</h1>
+    <p class="page-subtitle text-muted-light">Oversee all hospital appointments across departments.</p>
   </div>
-  <button class="btn btn-primary" (click)="openBookingModal()">+ New Appointment</button>
+  <button class="btn btn-primary shadow-hover" (click)="openBookingModal()">+ New Appointment</button>
 </div>
 
-<div class="card p-4 mb-4 fade-in" style="animation-delay: 0.1s;">
+<div class="card p-4 mb-4 dark-glass fade-in" style="animation-delay: 0.1s;">
   <form [formGroup]="dateForm" (ngSubmit)="filterResults()" class="grid-3 items-end">
     <div class="form-group mb-0">
-      <label class="form-label text-sm font-semibold">Start Date</label>
-      <input type="date" formControlName="startDate" class="form-control">
+      <label class="form-label text-sm font-semibold text-light">Start Date</label>
+      <input type="date" formControlName="startDate" class="form-control dark-input">
     </div>
     
     <div class="form-group mb-0">
-      <label class="form-label text-sm font-semibold">End Date</label>
-      <input type="date" formControlName="endDate" class="form-control">
+      <label class="form-label text-sm font-semibold text-light">End Date</label>
+      <input type="date" formControlName="endDate" class="form-control dark-input">
     </div>
     
     <div class="flex gap-2">
-      <button type="submit" class="btn btn-primary flex-1" [disabled]="isLoading">
+      <button type="submit" class="btn btn-primary flex-1 shadow-hover" [disabled]="isLoading">
         <span *ngIf="!isLoading">Filter Dates</span>
         <span *ngIf="isLoading" class="btn-spinner"></span>
       </button>
-      <button type="button" class="btn btn-outline" (click)="resetFilter()">Clear</button>
+      <button type="button" class="btn btn-outline dark-outline" (click)="resetFilter()">Clear</button>
     </div>
   </form>
 </div>
 
-<div class="card fade-in" style="animation-delay: 0.1s">
-  <div class="flex justify-between items-center mb-4">
+<div class="card dark-glass fade-in" style="animation-delay: 0.1s">
+  <div class="flex justify-between items-center mb-4 p-4 pb-0">
     <div class="search-box">
-      <input type="text" class="form-control" placeholder="Search Patient by Name..." [(ngModel)]="searchTerm" (ngModelChange)="filterAppointments()">
+      <input type="text" class="form-control dark-input" placeholder="Search Patient by Name..." [(ngModel)]="searchTerm" (ngModelChange)="filterAppointments()">
     </div>
   </div>
-  <div class="table-container">
-    <table *ngIf="filteredAppointments.length > 0; else noData">
+  
+  <div class="table-container p-4 pt-0">
+    <table class="dark-table" *ngIf="filteredAppointments.length > 0; else noData">
       <thead>
         <tr>
           <th>ID</th>
@@ -47,11 +48,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let apt of filteredAppointments">
-          <td>#{{apt.id}}</td>
-          <td>{{apt.patient.name}}</td>
-          <td>Dr. {{apt.doctor.name}}</td>
-          <td>{{apt.appointmentTime | date:'medium'}}</td>
+        <tr *ngFor="let apt of filteredAppointments" class="hover-bg-dark">
+          <td class="text-muted-light font-medium">#{{apt.id}}</td>
+          <td class="text-light">{{apt.patient.name}}</td>
+          <td class="text-light">Dr. {{apt.doctor.name}}</td>
+          <td class="text-light">{{apt.appointmentTime | date:'medium'}}</td>
           <td>
             <span class="badge" 
                   [ngClass]="{
@@ -64,66 +65,75 @@
           </td>
           <td>
             <div class="action-buttons">
-              <button class="btn btn-sm btn-outline" *ngIf="apt.status === 'SCHEDULED'" (click)="openRescheduleModal(apt)">Reschedule</button>
-              <button class="btn btn-sm btn-outline" (click)="viewHistory(apt.patient.id)">History</button>
+              <button class="btn-action btn-reschedule" *ngIf="apt.status === 'SCHEDULED'" (click)="openRescheduleModal(apt)">
+                Reschedule
+              </button>
+              <button class="btn-action btn-history" (click)="viewHistory(apt.patient.id)">
+                History
+              </button>
             </div>
           </td>
         </tr>
       </tbody>
     </table>
+    
     <ng-template #noData>
-      <div class="text-center" style="padding: 2rem; color: var(--text-muted);">
-        <p>No appointments found in the system.</p>
+      <div class="text-center py-12 text-muted-light">
+        <div class="flex justify-center mb-4">
+          <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="opacity: 0.5;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+        </div>
+        <p class="text-lg font-medium text-light">No appointments found.</p>
+        <p class="text-sm mt-1">Try adjusting your filters or search term.</p>
       </div>
     </ng-template>
   </div>
 </div>
 
-<!-- Booking Modal Overlay -->
 <div class="modal-overlay" *ngIf="showModal">
-  <div class="modal-card fade-in">
-    <div class="modal-header">
-      <h2>{{ isRescheduleMode ? 'Reschedule Appointment' : 'Book Appointment (Receptionist)' }}</h2>
+  <div class="modal-card dark-modal fade-in">
+    <div class="modal-header border-bottom-dark">
+      <h2 class="text-white">{{ isRescheduleMode ? 'Reschedule Appointment' : 'Book Appointment' }}</h2>
       <button class="close-btn" (click)="closeModal()">&times;</button>
     </div>
+    
     <div class="modal-body">
       <form [formGroup]="bookingForm" (ngSubmit)="bookAppointment()">
         
         <div class="form-group">
-          <label class="form-label">Search & Select Patient</label>
-          <input type="text" class="form-control mb-1" placeholder="Type name to search..." [formControl]="patientSearchCtrl">
-          <select class="form-control" formControlName="patientId">
+          <label class="form-label text-sm font-semibold text-light">Search & Select Patient</label>
+          <input type="text" class="form-control dark-input mb-1" placeholder="Type name to search..." [formControl]="patientSearchCtrl">
+          <select class="form-control dark-input" formControlName="patientId">
             <option value="">-- Choose a Patient --</option>
-            <option *ngFor="let pat of patients" [value]="pat.id">
+            <option class="dark-option" *ngFor="let pat of patients" [value]="pat.id">
               {{pat.name}} (ID: {{pat.id}})
             </option>
           </select>
         </div>
 
-        <div class="form-group mt-1">
-          <label class="form-label">Search & Select Doctor</label>
-          <input type="text" class="form-control mb-1" placeholder="Type name to search..." [formControl]="doctorSearchCtrl">
-          <select class="form-control" formControlName="doctorId">
+        <div class="form-group mt-3">
+          <label class="form-label text-sm font-semibold text-light">Search & Select Doctor</label>
+          <input type="text" class="form-control dark-input mb-1" placeholder="Type name to search..." [formControl]="doctorSearchCtrl">
+          <select class="form-control dark-input" formControlName="doctorId">
             <option value="">-- Choose a Specialist --</option>
-            <option *ngFor="let doc of doctors" [value]="doc.id">
+            <option class="dark-option" *ngFor="let doc of doctors" [value]="doc.id">
               Dr. {{doc.name}} ({{doc.specialty}})
             </option>
           </select>
         </div>
         
-        <div class="form-group mt-1">
-          <label class="form-label">Date & Time</label>
-          <input type="datetime-local" class="form-control" formControlName="appointmentTime">
+        <div class="form-group mt-3">
+          <label class="form-label text-sm font-semibold text-light">Date & Time</label>
+          <input type="datetime-local" class="form-control dark-input" formControlName="appointmentTime">
         </div>
 
-        <div class="form-group mt-1">
-          <label class="form-label">Notes</label>
-          <textarea class="form-control" rows="2" formControlName="notes" placeholder="Optional notes..."></textarea>
+        <div class="form-group mt-3">
+          <label class="form-label text-sm font-semibold text-light">Notes</label>
+          <textarea class="form-control dark-input" rows="2" formControlName="notes" placeholder="Optional notes..."></textarea>
         </div>
 
-        <div class="form-actions mt-2">
-          <button type="button" class="btn btn-outline" (click)="closeModal()">Cancel</button>
-          <button type="submit" class="btn btn-primary" [disabled]="isBooking">
+        <div class="form-actions mt-4 pt-4 border-top-dark">
+          <button type="button" class="btn btn-outline dark-outline" (click)="closeModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary shadow-hover" [disabled]="isBooking">
             <span *ngIf="!isBooking">Book Appointment</span>
             <span *ngIf="isBooking" class="btn-spinner"></span>
           </button>

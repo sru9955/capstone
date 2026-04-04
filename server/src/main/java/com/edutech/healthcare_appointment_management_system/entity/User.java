@@ -3,6 +3,12 @@ package com.edutech.healthcare_appointment_management_system.entity;
 import javax.persistence.*;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(
+    name = "dtype",
+    discriminatorType = DiscriminatorType.STRING,
+    length=50
+)
 @Table(name = "users")
 public class User {
 

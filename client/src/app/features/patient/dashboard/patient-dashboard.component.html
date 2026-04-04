@@ -1,6 +1,5 @@
 <div class="pd-page">
 
-  <!-- HERO -->
   <div class="pd-hero">
     <div class="pd-hero-top">
       <div class="pd-hero-left">
@@ -37,10 +36,8 @@
     </div>
   </div>
 
-  <!-- BOTTOM GRID -->
   <div class="pd-bottom-grid">
 
-    <!-- RECENT APPOINTMENTS -->
     <div class="pd-panel">
       <div class="pd-panel-header">
         <h3>Recent Appointments</h3>
@@ -58,28 +55,27 @@
           <div class="pd-apt-specialty">{{ a?.doctor?.specialty }}</div>
         </div>
         <div class="pd-apt-time">{{ a?.appointmentTime | date:'MMM d, h:mm a' }}</div>
+        
         <span
           class="pd-status-badge"
-          [class.scheduled]="a?.status === 'SCHEDULED'"
-          [class.completed]="a?.status === 'COMPLETED'"
-          [class.cancelled]="a?.status === 'CANCELLED'"
+          [class.scheduled]="$any(a?.status) === 'SCHEDULED' || $any(a?.status) === 'Scheduled' || $any(a?.status) === 'scheduled'"
+          [class.pending]="$any(a?.status) === 'PENDING' || $any(a?.status) === 'Pending' || $any(a?.status) === 'pending'"
+          [class.completed]="$any(a?.status) === 'COMPLETED' || $any(a?.status) === 'Completed' || $any(a?.status) === 'completed'"
+          [class.cancelled]="$any(a?.status) === 'CANCELLED' || $any(a?.status) === 'Cancelled' || $any(a?.status) === 'cancelled'"
         >
-          {{ a?.status }}
+          {{ a?.status | uppercase }}
         </span>
       </div>
     </div>
 
-    <!-- RIGHT COLUMN -->
     <div class="pd-right-col">
 
-      <!-- PROFILE -->
       <div class="pd-panel">
         <h3>Profile</h3>
         <p class="pd-profile-name">{{ patientProfile?.name }}</p>
         <p class="pd-profile-phone">{{ patientProfile?.phone }}</p>
       </div>
 
-      <!-- VITALS -->
       <div class="pd-panel" *ngIf="latestVitals as v">
         <h3>Latest Vitals</h3>
         <div class="pd-vitals-grid">
@@ -102,7 +98,6 @@
         </div>
       </div>
 
-      <!-- BMI -->
       <div class="pd-panel" *ngIf="bmi !== null">
         <h3>BMI: {{ bmi }}</h3>
         <p class="pd-bmi-category">{{ bmiCategory }}</p>

@@ -29,15 +29,15 @@
           </td>
           <td class="notes-cell" [title]="record.notes">{{record.notes || '-'}}</td>
           <td>
-            <button class="btn btn-sm btn-outline-primary" [routerLink]="['/print/prescription', record.id]">
-              🖨️ Print
+            <button class="btn-print" [routerLink]="['/print/prescription', record.id]">
+              Print Prescription
             </button>
           </td>
         </tr>
       </tbody>
     </table>
     <ng-template #noData>
-      <div class="text-center" style="padding: 2rem; color: var(--text-muted);">
+      <div class="text-center" style="padding: 2rem;">
         <p>No medical records found.</p>
       </div>
     </ng-template>

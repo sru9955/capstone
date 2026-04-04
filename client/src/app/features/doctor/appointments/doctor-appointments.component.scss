@@ -1,6 +1,178 @@
+/* --- Header Styling --- */
+.page-header {
+  margin-bottom: 2rem;
+}
+.page-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem 0;
+}
+
+/* --- TEXT UTILITIES --- */
+.text-white { color: #ffffff !important; }
+.text-light { color: #f8fafc !important; }
+.text-muted-light { color: #94a3b8 !important; }
+.font-medium { font-weight: 500; }
+.font-semibold { font-weight: 600; }
+.text-sm { font-size: 0.875rem; }
+.text-lg { font-size: 1.125rem; }
+.text-center { text-align: center; }
+
+/* --- DARK GLASS CARD --- */
+.dark-glass {
+  background: rgba(255, 255, 255, 0.05); 
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3); 
+}
+
+/* --- FORM CONTROLS --- */
+.dark-input {
+  background: rgba(0, 0, 0, 0.25) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+  transition: all 0.2s ease;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+}
+.dark-input:focus {
+  border-color: #818cf8 !important;
+  box-shadow: 0 0 0 2px rgba(129, 140, 248, 0.2) !important;
+  outline: none;
+}
+
+/* Fixes the native calendar icon color in dark mode */
+::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.dark-outline {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #f8fafc;
+  transition: all 0.3s;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+}
+.dark-outline:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+.shadow-hover:hover { 
+  box-shadow: 0 6px 12px -2px rgba(99, 102, 241, 0.4); 
+  transform: translateY(-1px); 
+}
+
+/* --- TABLE STYLING --- */
+.table-container {
+  overflow-x: auto;
+  padding: 0.5rem;
+}
+.dark-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.dark-table th {
+  text-align: left;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.2);
+  color: #cbd5e1;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.dark-table td {
+  padding: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  vertical-align: middle;
+}
+.dark-table tbody tr {
+  transition: background-color 0.2s ease;
+}
+.dark-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.03); 
+}
+
 .notes-cell {
   max-width: 250px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+/* --- SOLID TEXT ACTION BUTTONS --- */
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap; 
+}
+.btn-action {
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  color: #ffffff; /* White text so they pop */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Solid Green "Complete" Button */
+.btn-complete {
+  background: linear-gradient(135deg, #10b981, #059669);
+}
+.btn-complete:hover {
+  background: linear-gradient(135deg, #34d399, #10b981);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Solid Gray/Blue "History" Button */
+.btn-history {
+  background: linear-gradient(135deg, #64748b, #475569);
+}
+.btn-history:hover {
+  background: linear-gradient(135deg, #94a3b8, #64748b);
+  box-shadow: 0 4px 12px rgba(100, 116, 139, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Solid Indigo "Add Record" Button */
+.btn-record {
+  background: linear-gradient(135deg, #6366f1, #4f46e5);
+}
+.btn-record:hover {
+  background: linear-gradient(135deg, #818cf8, #6366f1);
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+  transform: translateY(-2px);
+}
+
+/* --- UTILITIES & LAYOUT --- */
+.flex { display: flex; }
+.gap-2 { gap: 0.5rem; }
+.flex-1 { flex: 1; }
+.justify-center { justify-content: center; }
+.py-12 { padding-top: 3rem; padding-bottom: 3rem; }
+.p-4 { padding: 1rem; }
+.mb-4 { margin-bottom: 1rem; }
+.mb-0 { margin-bottom: 0; }
+.mt-1 { margin-top: 0.25rem; }
+.items-end { align-items: flex-end; }
+.form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
 }

@@ -25,20 +25,77 @@
 }
 .profile-sidebar { padding: 3rem 2rem; }
 
-.avatar-container { text-align: center; }
-.profile-img {
-  width: 140px; height: 140px; border-radius: 50%;
-  object-fit: cover; border: 4px solid #eff6ff;
-  margin: 0 auto; display: block;
-}
-.placeholder {
-  background: linear-gradient(135deg, #6366f1, #a855f7); color: white;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 4rem; font-weight: 700;
-}
-.upload-btn { display: inline-block; cursor: pointer; width: 100%; border-radius: 6px; padding: 0.5rem;}
-.loading { pointer-events: none; opacity: 0.7; }
+/* --- AVATAR STYLING --- */
+.avatar-container { text-align: center; position: relative; }
 
+.profile-img {
+  width: 140px; 
+  height: 140px; 
+  border-radius: 50%;
+  object-fit: cover; 
+  border: 4px solid #eff6ff;
+  margin: 0 auto; 
+  display: block;
+  background-color: #f1f5f9;
+  /* FIX: Forces the mouse to stay normal, stopping the buffering wheel */
+  cursor: default !important; 
+}
+
+.placeholder {
+  background: #f1f5f9; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  /* FIX: Forces the mouse to stay normal on the empty SVG avatar */
+  cursor: default !important; 
+}
+
+/* Prevent the SVG inside from triggering any weird pointer events */
+.placeholder svg {
+  pointer-events: none;
+}
+
+.btn-change-pic { 
+  display: inline-flex; 
+  align-items: center;
+  justify-content: center;
+  cursor: pointer; 
+  width: 100%; 
+  border-radius: 8px; 
+  padding: 0.6rem 1rem;
+  background: rgba(99, 102, 241, 0.1);
+  color: #4f46e5;
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+.btn-change-pic:hover:not(.is-uploading) {
+  background: #4f46e5;
+  color: #ffffff;
+  border-color: #4f46e5;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+  transform: translateY(-2px);
+}
+.btn-change-pic.is-uploading { 
+  pointer-events: none; 
+  opacity: 0.7; 
+  cursor: wait; /* Only shows loading when ACTUALLY uploading a file */
+}
+
+.btn-spinner {
+  display: inline-block; 
+  width: 14px; 
+  height: 14px;
+  border: 2px solid currentColor;
+  border-right-color: transparent; 
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-right: 8px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* --- TEXT & FORM STYLING --- */
 .profile-name { font-weight: 700; color: #1e293b; margin-top: 1.5rem; margin-bottom: 0.5rem; font-size: 1.4rem; }
 .role-badge { display: inline-block; padding: 0.4rem 1rem; border-radius: 50px; background: #e0e7ff; color: #4338ca; font-size: 0.85rem; font-weight: 600; }
 

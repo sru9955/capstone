@@ -24,12 +24,16 @@ $radius-sm:     10px;
   background: rgba(255, 255, 255, 0.10);
   border: 1px solid $border;
   border-radius: $radius-lg;
-  padding: 28px 32px;
+  padding: 28px 32px 0;
+  margin-bottom: 20px;
+  backdrop-filter: blur(8px);
+}
+
+.pd-hero-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
-  backdrop-filter: blur(8px);
+  margin-bottom: 24px;
 }
 
 .pd-hero-left {
@@ -72,41 +76,44 @@ $radius-sm:     10px;
   color: $muted;
 }
 
+// ─── Light Blue Button ───
 .pd-book-btn {
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(56, 189, 248, 0.25);
+  border: 1px solid rgba(56, 189, 248, 0.5);
   border-radius: $radius-sm;
-  color: $white;
+  color: #e0f2fe; 
   padding: 10px 22px;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   backdrop-filter: blur(6px);
-  transition: background 0.2s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.2);
 
   &:hover {
-    background: rgba(255, 255, 255, 0.22);
+    background: rgba(56, 189, 248, 0.4);
+    box-shadow: 0 0 18px rgba(56, 189, 248, 0.4);
+    transform: translateY(-1px);
   }
 }
 
 // ─── Stats Bar ────────────────────────────────────────────
 .pd-stats-bar {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid $border;
-  border-radius: $radius-md;
-  padding: 20px 36px;
   display: flex;
   align-items: center;
   justify-content: space-around;
-  margin-bottom: 16px;
-  backdrop-filter: blur(6px);
+  gap: 0;
+  border-top: 1px solid $border;
+  padding: 16px 0;
 }
 
 .pd-stat-item {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center; 
   gap: 4px;
+  padding: 0 24px;
 }
 
 .pd-stat-num {
@@ -123,39 +130,9 @@ $radius-sm:     10px;
 
 .pd-stat-divider {
   width: 1px;
-  height: 36px;
+  height: 32px;
   background: $border;
-}
-
-// ─── Stat Cards ───────────────────────────────────────────
-.pd-card-row {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 14px;
-  margin-bottom: 16px;
-}
-
-.pd-stat-card {
-  background: $panel-bg;
-  border: 1px solid $border;
-  border-radius: $radius-md;
-  padding: 20px 22px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  backdrop-filter: blur(6px);
-}
-
-.pd-card-num {
-  font-size: 28px;
-  font-weight: 700;
-  color: $white;
-  line-height: 1;
-}
-
-.pd-card-label {
-  font-size: 13px;
-  color: $muted;
+  flex-shrink: 0;
 }
 
 // ─── Bottom Grid ──────────────────────────────────────────
@@ -250,7 +227,7 @@ $radius-sm:     10px;
   white-space: nowrap;
 }
 
-// ─── Status Badge ─────────────────────────────────────────
+// ─── Status Badges ───────────────────────────────
 .pd-status-badge {
   padding: 4px 10px;
   border-radius: 6px;
@@ -259,18 +236,28 @@ $radius-sm:     10px;
   letter-spacing: 0.04em;
   white-space: nowrap;
 
+  /* SCHEDULED -> YELLOW */
   &.scheduled {
-    background: rgba(124, 111, 224, 0.30);
-    color: #c4bcf7;
-    border: 1px solid rgba(124, 111, 224, 0.40);
+    background: rgba(250, 204, 21, 0.20); 
+    color: #fef08a;
+    border: 1px solid rgba(250, 204, 21, 0.40);
   }
 
+  /* PENDING -> VIBRANT ORANGE */
+  &.pending {
+    background: rgba(255, 152, 0, 0.20); 
+    color: #ffb74d; 
+    border: 1px solid rgba(255, 152, 0, 0.40);
+  }
+
+  /* COMPLETED -> GREEN */
   &.completed {
     background: rgba(52, 211, 153, 0.20);
     color: #6ee7b7;
     border: 1px solid rgba(52, 211, 153, 0.35);
   }
 
+  /* CANCELLED -> RED */
   &.cancelled {
     background: rgba(248, 113, 113, 0.20);
     color: #fca5a5;
@@ -373,57 +360,10 @@ $radius-sm:     10px;
   .pd-bottom-grid {
     grid-template-columns: 1fr;
   }
-
-  .pd-card-row {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
 
 @media (max-width: 600px) {
   .pd-page { padding: 16px; }
   .pd-hero { flex-direction: column; align-items: flex-start; gap: 16px; }
   .pd-stats-bar { padding: 16px; }
-  .pd-card-row { grid-template-columns: repeat(2, 1fr); }
-}
-
-.pd-hero {
-  background: rgba(255, 255, 255, 0.10);
-  border: 1px solid $border;
-  border-radius: $radius-lg;
-  padding: 28px 32px 0;
-  margin-bottom: 20px;
-  backdrop-filter: blur(8px);
-}
-
-.pd-hero-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 24px;
-}
-
-.pd-stats-bar {
-  display: flex;
-  align-items: center;
-  gap: 0;
-  border-top: 1px solid $border;
-  padding: 16px 0;
-}
-
-.pd-stat-item {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 4px;
-  padding: 0 24px;
-
-  &:first-child { padding-left: 0; }
-}
-
-.pd-stat-divider {
-  width: 1px;
-  height: 32px;
-  background: $border;
-  flex-shrink: 0;
 }

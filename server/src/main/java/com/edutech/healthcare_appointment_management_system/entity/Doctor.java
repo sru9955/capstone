@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.util.List;
 
+@DiscriminatorValue("DOCTOR")
 @Entity
 @Table(name = "doctors")
 public class Doctor {

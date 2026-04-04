@@ -16,9 +16,9 @@ export class RegisterComponent implements OnInit {
   showPassword = false;
 
   roles = [
-    { value: 'PATIENT', label: 'Patient', icon: '🤒', desc: 'Book appointments & view records' },
-    { value: 'DOCTOR', label: 'Doctor', icon: '👨‍⚕️', desc: 'Manage schedule & appointments' },
-    { value: 'RECEPTIONIST', label: 'Receptionist', icon: '🧑‍💼', desc: 'Manage all appointments' },
+    { value: 'PATIENT', label: 'Patient', icon: 'assets/patient-icon.png', desc: 'Book appointments & view records' },
+    { value: 'DOCTOR', label: 'Doctor', icon: 'assets/doctor-icon.png', desc: 'Manage schedule & appointments' },
+    { value: 'RECEPTIONIST', label: 'Receptionist', icon: 'assets/receptionist-icon.png', desc: 'Manage all appointments' },
   ];
 
   specialties = ['Cardiology','Dermatology','Endocrinology','Gastroenterology','General Medicine',

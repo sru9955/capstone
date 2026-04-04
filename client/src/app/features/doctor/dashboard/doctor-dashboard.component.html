@@ -5,16 +5,16 @@
   </div>
   
   <div class="availability-toggle flex items-center gap-2" *ngIf="doctorProfile">
-    <span class="text-sm text-muted font-medium">Availability Status:</span>
-    <div class="flex bg-gray-100 p-1 rounded-full">
-      <button class="btn btn-sm" 
-              [ngClass]="doctorProfile.availability === 'AVAILABLE' ? 'btn-success' : 'btn-outline border-transparent'"
+    <span class="text-sm font-medium toggle-label">Availability Status:</span>
+    <div class="status-pill-container">
+      <button class="status-btn" 
+              [ngClass]="{'active-available': doctorProfile.availability === 'AVAILABLE'}"
               (click)="updateAvailability('AVAILABLE')"
               [disabled]="isUpdatingStatus">
         Available
       </button>
-      <button class="btn btn-sm"
-              [ngClass]="doctorProfile.availability === 'UNAVAILABLE' ? 'btn-danger' : 'btn-outline border-transparent'"
+      <button class="status-btn"
+              [ngClass]="{'active-busy': doctorProfile.availability === 'UNAVAILABLE'}"
               (click)="updateAvailability('UNAVAILABLE')"
               [disabled]="isUpdatingStatus">
         Busy
@@ -55,9 +55,9 @@
   </div>
 </div>
 
-<div class="card fade-in" style="animation-delay: 0.2s">
-  <div class="flex justify-between items-center mb-4 border-bottom pb-4">
-    <h2 class="card-title text-xl font-bold">Today's Schedule</h2>
+<div class="card dark-glass fade-in" style="animation-delay: 0.2s">
+  <div class="flex justify-between items-center mb-4 border-bottom-dark pb-4">
+    <h2 class="card-title text-xl font-bold text-white">Today's Schedule</h2>
     <a routerLink="/doctor/appointments" class="badge badge-primary cursor-pointer hover-shadow">View Full Schedule</a>
   </div>
 
@@ -69,9 +69,10 @@
              'bg-warning': apt.status === 'SCHEDULED' || apt.status === 'RESCHEDULED',
              'bg-danger': apt.status === 'CANCELLED'
            }"></div>
-      <div class="timeline-content flex-1 bg-gray-50 p-4 rounded-xl border border-gray-100 hover-bg transition">
+      
+      <div class="timeline-content flex-1 dark-item-bg p-4 rounded-xl border-dark hover-bg-dark transition">
         <div class="flex justify-between items-center">
-          <h3 class="text-lg font-bold text-gray-800">{{apt.appointmentTime | date:'shortTime'}} &bull; {{apt.patient.name}}</h3>
+          <h3 class="text-lg font-bold text-light">{{apt.appointmentTime | date:'shortTime'}} &bull; {{apt.patient.name}}</h3>
           <span class="badge" 
                 [ngClass]="{
                   'badge-success': apt.status === 'COMPLETED',
@@ -81,16 +82,17 @@
             {{apt.status}}
           </span>
         </div>
-        <p class="mt-2 text-sm text-gray-600">{{apt.notes || 'No specific notes provided.'}}</p>
+        <p class="mt-2 text-sm text-muted-light">{{apt.notes || 'No specific notes provided.'}}</p>
       </div>
     </div>
   </div>
+  
   <ng-template #noData>
-    <div class="text-center py-12 text-gray-500">
+    <div class="text-center py-12 text-muted-light">
       <div class="flex justify-center mb-4">
-        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#CBD5E1" stroke-width="1.5"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="opacity: 0.5;"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
       </div>
-      <p class="text-lg font-medium text-gray-600">You have no appointments scheduled for today.</p>
+      <p class="text-lg font-medium text-light">You have no appointments scheduled for today.</p>
       <p class="text-sm mt-1">Enjoy your day!</p>
     </div>
   </ng-template>

@@ -4,7 +4,8 @@ export interface Appointment {
   patient: Patient;
   doctor: Doctor;
   appointmentTime: string;
-  status: 'SCHEDULED' | 'COMPLETED' | 'CANCELLED' | 'RESCHEDULED';
+  // STRICT TYPING: Only these uppercase statuses are allowed
+  status: 'SCHEDULED' | 'PENDING' | 'COMPLETED' | 'CANCELLED' | 'RESCHEDULED';
   notes?: string;
   problem?: string;
   fee?: number;
@@ -43,7 +44,7 @@ export interface PrescriptionItem {
 
 export interface MedicalRecord {
   id: number;
-  patient: any; // Using any or specific Patient model with extended fields
+  patient: any; 
   doctor: any;
   appointment?: Appointment;
   age?: number;

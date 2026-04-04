@@ -1,17 +1,111 @@
-.text-sm { font-size: 0.875rem; }
-.text-muted { color: var(--text-muted); }
+/* --- Header Styling --- */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.page-title {
+  color: #ffffff;
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem 0;
+}
+.page-subtitle {
+  color: #94a3b8;
+  margin: 0;
+}
 
+/* --- Availability Toggle (Pill Design) --- */
 .availability-toggle {
   display: flex;
   align-items: center;
-  background: var(--bg-card);
+  background: rgba(255, 255, 255, 0.05);
   padding: 0.5rem 1rem;
-  border-radius: var(--border-radius);
-  border: 1px solid var(--border);
+  border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.toggle-label {
+  color: #cbd5e1;
+  margin-right: 0.5rem;
+}
+.status-pill-container {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 50px;
+  padding: 4px;
+  display: flex;
+  gap: 4px;
+}
+.status-btn {
+  border: none;
+  background: transparent;
+  color: #94a3b8;
+  padding: 6px 16px;
+  border-radius: 40px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.status-btn.active-available {
+  background: #10b981;
+  color: white;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+}
+.status-btn.active-busy {
+  background: #ef4444;
+  color: white;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+}
+.status-btn:hover:not(.active-available):not(.active-busy) {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
 }
 
-.bg-gray-100 { background-color: #f3f4f6; }
-.bg-gray-50 { background-color: #f9fafb; }
+/* --- NEW DARK THEME CARD STYLES --- */
+.card.dark-glass {
+  background: rgba(255, 255, 255, 0.05); 
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3); 
+  padding: 2rem;
+}
+
+.text-white { color: #ffffff !important; }
+.text-light { color: #f8fafc !important; }
+.text-muted-light { color: #94a3b8 !important; }
+.border-bottom-dark { border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+
+/* Timeline dark item box */
+.dark-item-bg { 
+  background: rgba(0, 0, 0, 0.25); 
+}
+.border-dark { 
+  border: 1px solid rgba(255, 255, 255, 0.05); 
+}
+.hover-bg-dark:hover { 
+  background: rgba(255, 255, 255, 0.08); 
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); 
+}
+
+/* Make the vertical timeline line darker/subtle */
+.timeline-container { position: relative; }
+.timeline-container::before {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0; left: 1rem;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.1); /* Darkened the line */
+  z-index: 1;
+}
+
+/* --- Original Utilities --- */
+.text-sm { font-size: 0.875rem; }
+.text-muted { color: var(--text-muted); }
 .rounded-full { border-radius: 9999px; }
 .rounded-xl { border-radius: 0.75rem; }
 .border-transparent { border-color: transparent; }
@@ -31,25 +125,13 @@
 .h-4 { height: 1rem; }
 .z-10 { z-index: 10; }
 .border { border-width: 1px; border-style: solid; }
-.border-gray-100 { border-color: #f3f4f6; }
-.hover-bg:hover { background-color: white; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
 .hover-shadow:hover { box-shadow: 0 6px 12px -2px rgba(99, 102, 241, 0.4); text-decoration: none; transform: translateY(-1px); }
 .text-lg { font-size: 1.125rem; }
-.text-gray-800 { color: #1f2937; }
-.text-gray-600 { color: #4b5563; }
-.text-gray-500 { color: #6b7280; }
 .transition { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
 .flex-1 { flex: 1; }
 .flex { display: flex; }
 .relative { position: relative; }
-
-.timeline-container { position: relative; }
-.timeline-container::before {
-  content: '';
-  position: absolute;
-  top: 0; bottom: 0; left: 1rem;
-  width: 2px;
-  background: #e2e8f0;
-  z-index: 1;
-}
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.justify-center { justify-content: center; }
 .timeline-dot { position: relative; z-index: 10; flex-shrink: 0; }

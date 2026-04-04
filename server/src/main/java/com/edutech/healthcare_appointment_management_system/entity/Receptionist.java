@@ -3,6 +3,7 @@ package com.edutech.healthcare_appointment_management_system.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
+@DiscriminatorValue("RECEPTIONIST")
 @Entity
 @Table(name = "receptionists")
 public class Receptionist {
