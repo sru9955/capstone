@@ -1,4 +1,5 @@
 <div class="landing-container">
+  
   <app-navbar></app-navbar>
 
   <header class="hero">
@@ -7,17 +8,35 @@
       <div class="hero-content">
         <div class="badge">Next-Gen Healthcare</div>
         <h1>Unified Hospital <span class="text-gradient">Management</span></h1>
-        <p>A seamless, secure, and professional system connecting administrators, doctors, receptionists, and patients in a centralized 3D ecosystem.</p>
+        <p>A seamless, secure, and professional system connecting administrators, doctors, receptionists, and patients in a centralized ecosystem.</p>
         <div class="hero-actions">
           <a href="#roles" class="btn btn-primary shadow-3d">Access Your Portal</a>
-          <button class="btn btn-secondary glass">Chat with AI Assistant</button>
+          
+          <button type="button" class="btn btn-secondary glass" (click)="myChatbot.isOpen = true">Chat with AI Assistant</button>
+        
         </div>
       </div>
       
-      <div class="hero-3d-wrapper floating">
-        <div class="placeholder-3d">
-          <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="text-indigo"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
-          <p>Interactive 3D Object Area</p>
+      <div class="hero-carousel-wrapper floating">
+        <div class="carousel-container" (mouseenter)="stopAutoPlay()" (mouseleave)="startAutoPlay()">
+          <button class="nav-btn prev-btn" (click)="prevSlide()">&#10094;</button>
+          <button class="nav-btn next-btn" (click)="nextSlide()">&#10095;</button>
+          <div class="carousel-track" [style.transform]="'translateX(-' + (currentSlide * 100) + '%)'">
+            <div class="carousel-slide" *ngFor="let tip of healthTips; let i = index">
+              <img [src]="tip.image" [alt]="tip.title">
+              <div class="slide-content">
+                <span class="tip-badge">Tip {{ i + 1 }}</span>
+                <h3>{{ tip.title }}</h3>
+                <p>{{ tip.description }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-dots">
+            <span class="dot" *ngFor="let tip of healthTips; let i = index" 
+                  [class.active]="i === currentSlide" 
+                  (click)="goToSlide(i)">
+            </span>
+          </div>
         </div>
       </div>
     </div>
@@ -79,4 +98,9 @@
       </div>
     </div>
   </section>
+
+  <div style="position: fixed; bottom: 30px; right: 30px; z-index: 9999;">
+    <app-chatbot #myChatbot></app-chatbot>
+  </div>
+
 </div>

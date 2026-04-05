@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { HttpService } from '../core/services/http.service';
 import { ChatMessage } from '../shared/models/dashboard.model';
 import { AuthService } from '../core/services/auth.service';
@@ -23,23 +23,22 @@ export class ChatbotComponent implements OnInit {
 
   ngOnInit(): void {
     this.auth.currentUser$.subscribe(user => {
-      const wasLoggedIn = this.isLoggedIn;
       this.isLoggedIn = !!user;
-      
-      if (user || wasLoggedIn) {
-        this.messages = [];
-        this.conversationState = 'IDLE';
-        this.pendingData = {};
-        
-        if (this.isLoggedIn) {
-          this.addBotMessage(this.getGreeting(user));
-        }
-      }
+      this.messages = [];
+      this.conversationState = 'IDLE';
+      this.pendingData = {};
+      this.addBotMessage(this.getGreeting(user));
     });
   }
 
+  // Listens for the button click from the Landing Page
+  @HostListener('window:openChat')
+  openFromOutside() {
+    this.isOpen = true;
+  }
+
   private getGreeting(user: any): string {
-    const name = user?.username || 'there';
+    const name = user?.username ? user.username : 'there';
     let base = `Hi ${name}! I'm your healthcare assistant. `;
     
     if (this.auth.isPatient()) {
@@ -49,11 +48,12 @@ export class ChatbotComponent implements OnInit {
     } else if (this.auth.isReceptionist()) {
       return base + "I can help you **book an appointment for a patient** or oversee all system appointments. How can I help?";
     }
-    return base + "How can I help you today?";
+    
+    return base + "I can answer general questions about our hospital and services. How can I help you today?";
   }
 
   toggleChat(): void {
-    if (!this.isLoggedIn) return;
+    // Removed the login blocker so anyone can chat!
     this.isOpen = !this.isOpen;
   }
 
@@ -68,7 +68,6 @@ export class ChatbotComponent implements OnInit {
 
     const input = text.toLowerCase().trim();
 
-    // Cancel mechanism
     if (input === 'cancel' || input === 'stop' || input === 'exit') {
         if (this.conversationState !== 'IDLE') {
             this.conversationState = 'IDLE';
@@ -79,14 +78,12 @@ export class ChatbotComponent implements OnInit {
         }
     }
 
-    // Stateful processing
     if (this.conversationState !== 'IDLE') {
         this.handleStatefulResponse(text);
         this.isTyping = false;
         return;
     }
 
-    // Checking for Intents
     if (this.auth.isPatient() && (input.includes('book') || input.includes('schedule')) && input.includes('appointment')) {
        this.conversationState = 'PATIENT_BOOKING_SYMPTOMS';
        this.pendingData = {};
@@ -122,7 +119,6 @@ export class ChatbotComponent implements OnInit {
        return;
     }
 
-    // Default: Fallback to Backend AI
     this.http.sendChatMessage(text, this.auth.getRole()).subscribe({
       next: (res) => {
         this.addBotMessage(res.reply);
@@ -136,7 +132,7 @@ export class ChatbotComponent implements OnInit {
   }
 
   handleOptionSelect(option: any, parentMsg: ChatMessage): void {
-      parentMsg.options = []; // Clear options to prevent re-click
+      parentMsg.options = []; 
       this.messages.push({ text: option.label, type: 'user', timestamp: new Date() });
       this.isTyping = true;
       this.scrollToBottom();
@@ -159,7 +155,6 @@ export class ChatbotComponent implements OnInit {
   }
 
   private handleStatefulResponse(text: string): void {
-      // -- PATIENT BOOKING --
       if (this.conversationState === 'PATIENT_BOOKING_SYMPTOMS') {
          this.pendingData.notes = text;
          this.conversationState = 'PATIENT_BOOKING_DOCTOR';
@@ -201,7 +196,6 @@ export class ChatbotComponent implements OnInit {
          return;
       }
       
-      // -- RECEPTIONIST BOOKING --
       if (this.conversationState === 'RECEPTIONIST_BOOKING_PATIENT') {
          this.pendingData.patientId = Number(text);
          if (isNaN(this.pendingData.patientId)) {
@@ -251,7 +245,6 @@ export class ChatbotComponent implements OnInit {
          return;
       }
       
-      // -- DOCTOR AVAILABILITY --
       if (this.conversationState === 'DOCTOR_AVAILABILITY_TEXT') {
          this.conversationState = 'IDLE';
          this.addBotMessage("Updating your availability schedule...");

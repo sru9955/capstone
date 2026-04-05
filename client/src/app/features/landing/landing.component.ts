@@ -1,24 +1,88 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 @Component({
-  selector: 'app-landing',
-  templateUrl: './landing.component.html',
-  styleUrls: ['./landing.component.scss']
+  selector: 'app-landing', // Fixed selector
+  templateUrl: './landing.component.html', // Fixed filename!
+  styleUrls: ['./landing.component.scss'] // Fixed filename!
 })
-export class LandingPageComponent implements OnInit {
+export class LandingPageComponent implements OnInit, OnDestroy {
+  // Chatbot toggle
+  isChatOpen = false;
+
+  // Carousel variables
+  currentSlide = 0;
+  autoPlayInterval: any;
+
   healthTips = [
-    { category: 'Diet', content: 'Drink at least 8 glasses of water daily for optimal organ functionality.' },
-    { category: 'Fitness', content: 'Exercise for 30 minutes every day to maintain cardiovascular health.' },
-    { category: 'Lifestyle', content: 'Get 7-8 hours of sleep each night to help your body recover.' },
-    { category: 'Mental Health', content: 'Take 5 minutes daily for mindfulness or deep breathing exercises.' }
+    {
+      image: 'https://images.unsplash.com/photo-1523362628745-0c100150b504?auto=format&fit=crop&w=800&q=80',
+      title: 'Stay Hydrated',
+      description: 'Drink at least 8 glasses of water daily to maintain energy and flush out toxins.'
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=800&q=80',
+      title: 'Balanced Diet',
+      description: 'Incorporate a colorful variety of vegetables and lean proteins into every meal.'
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800&q=80',
+      title: 'Daily Movement',
+      description: 'Aim for at least 30 minutes of moderate physical activity every single day.'
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=800&q=80',
+      title: 'Mental Wellness',
+      description: 'Take 10 minutes daily to unplug, breathe deeply, and practice mindfulness.'
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?auto=format&fit=crop&w=800&q=80',
+      title: 'Quality Sleep',
+      description: 'Ensure 7-9 hours of uninterrupted sleep to let your body repair and recharge.'
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=800&q=80',
+      title: 'Regular Checkups',
+      description: 'Prevention is key. Don\'t skip your annual exams and routine screenings.'
+    }
   ];
 
-  doctors = [
-    { name: 'Dr. Sarah Smith', specialty: 'Cardiologist', image: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=150&h=150&fit=crop' },
-    { name: 'Dr. John Doe', specialty: 'Neurologist', image: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=150&h=150&fit=crop' },
-    { name: 'Dr. Emily Chen', specialty: 'Pediatrician', image: 'https://images.unsplash.com/photo-1594824436951-7f12620ce501?w=150&h=150&fit=crop' }
-  ];
+  ngOnInit() {
+    this.startAutoPlay();
+  }
 
-  constructor() { }
-  ngOnInit(): void { }
+  ngOnDestroy() {
+    this.stopAutoPlay();
+  }
+
+  // Opens and closes the chatbot component
+  toggleChat() {
+    this.isChatOpen = !this.isChatOpen;
+  }
+
+  // Carousel Logic
+  startAutoPlay() {
+    this.autoPlayInterval = setInterval(() => {
+      this.nextSlide();
+    }, 5000); 
+  }
+
+  stopAutoPlay() {
+    if (this.autoPlayInterval) {
+      clearInterval(this.autoPlayInterval);
+    }
+  }
+
+  nextSlide() {
+    this.currentSlide = (this.currentSlide + 1) % this.healthTips.length;
+  }
+
+  prevSlide() {
+    this.currentSlide = (this.currentSlide - 1 + this.healthTips.length) % this.healthTips.length;
+  }
+
+  goToSlide(index: number) {
+    this.currentSlide = index;
+    this.stopAutoPlay(); 
+    this.startAutoPlay(); 
+  }
 }
