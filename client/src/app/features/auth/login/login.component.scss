@@ -124,3 +124,64 @@ input[type="password"]::-ms-clear {
     padding: 0.5rem 0.8rem;
   }
 }
+
+/* =========================================================
+   NEW BACKGROUND ANIMATIONS (Added below your original code)
+   ========================================================= */
+
+/* EKG Heartbeat Line */
+/* EKG Heartbeat Line */
+.heartbeat-bg {
+  position: absolute;
+  top: 50%;                     /* Move to the vertical center */
+  transform: translateY(-50%);  /* Perfectly align the exact middle */
+  left: 0;
+  width: 100%;
+  height: 250px;                /* Made it a bit taller so it spans nicely behind the card */
+  z-index: 0;
+  opacity: 0.15; 
+  pointer-events: none;
+}
+
+.ekg-line {
+  fill: none;
+  stroke: #818cf8;
+  stroke-width: 3;
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 2000;
+  animation: drawEkg 6s linear infinite;
+  filter: drop-shadow(0px 0px 8px rgba(129, 140, 248, 0.6));
+}
+
+@keyframes drawEkg {
+  0% { stroke-dashoffset: 2000; }
+  100% { stroke-dashoffset: -2000; }
+}
+
+/* Floating Medical Particles */
+.floating-particles {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  z-index: 0; pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  color: rgba(165, 180, 252, 0.15); /* Matched to your #a5b4fc text color */
+  font-weight: bold;
+  animation: floatUpward 15s infinite linear;
+  opacity: 0;
+}
+
+.p1 { left: 10%; animation-duration: 18s; animation-delay: 0s; font-size: 1.5rem; }
+.p2 { left: 30%; animation-duration: 14s; animation-delay: 2s; font-size: 2.5rem; }
+.p3 { left: 55%; animation-duration: 20s; animation-delay: 5s; font-size: 1.2rem; }
+.p4 { left: 80%; animation-duration: 16s; animation-delay: 1s; font-size: 2rem; }
+.p5 { left: 20%; animation-duration: 13s; animation-delay: 7s; font-size: 1.4rem; }
+
+@keyframes floatUpward {
+  0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+}

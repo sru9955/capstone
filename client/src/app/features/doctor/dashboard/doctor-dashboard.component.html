@@ -7,13 +7,13 @@
   <div class="availability-toggle flex items-center gap-2" *ngIf="doctorProfile">
     <span class="text-sm font-medium toggle-label">Availability Status:</span>
     <div class="status-pill-container">
-      <button class="status-btn" 
+      <button type="button" class="status-btn" 
               [ngClass]="{'active-available': doctorProfile.availability === 'AVAILABLE'}"
               (click)="updateAvailability('AVAILABLE')"
               [disabled]="isUpdatingStatus">
         Available
       </button>
-      <button class="status-btn"
+      <button type="button" class="status-btn"
               [ngClass]="{'active-busy': doctorProfile.availability === 'UNAVAILABLE'}"
               (click)="updateAvailability('UNAVAILABLE')"
               [disabled]="isUpdatingStatus">

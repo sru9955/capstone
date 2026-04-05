@@ -66,7 +66,9 @@ export class DoctorDashboardComponent implements OnInit, OnDestroy {
   loadTodayAppointments(): void {
     this.http.getAppointmentByDoctor().subscribe({
       next: (data) => {
-        const todayStr = new Date().toISOString().split('T')[0];
+        // THE FIX: Use substring(0, 10) to guarantee a pure string output (YYYY-MM-DD)
+        const todayStr = new Date().toISOString().substring(0, 10);
+        
         this.todayAppointments = data.filter(apt => apt.appointmentTime.startsWith(todayStr))
                                     .slice(0, 5); // top 5
         this.isLoading = false;
@@ -76,15 +78,23 @@ export class DoctorDashboardComponent implements OnInit, OnDestroy {
   }
 
   updateAvailability(status: string): void {
+    // Prevent spam clicking
+    if (this.isUpdatingStatus) return;
+    
     this.isUpdatingStatus = true;
     this.http.updateDoctorAvailability(status).subscribe({
       next: () => {
-        this.alert.success(`Availability updated to ${status}`);
-        if(this.doctorProfile) this.doctorProfile.availability = status;
+        if (this.doctorProfile) {
+          // Update locally so Angular doesn't refresh the whole page
+          this.doctorProfile.availability = status;
+        }
+        
+        // Fire the newly fixed, long-lasting alert
+        this.alert.success(`Availability successfully updated to ${status}`);
         this.isUpdatingStatus = false;
       },
       error: () => {
-        this.alert.error('Failed to update availability.');
+        this.alert.error('Failed to update availability. Please try again.');
         this.isUpdatingStatus = false;
       }
     });

@@ -1,20 +1,113 @@
-.form-group {
-  margin-bottom: 0;
-  input { max-width: 100%; border: 1px solid var(--border-color); border-radius: var(--border-radius); padding: 0.75rem; transition: border-color 0.2s;}
-  input:focus { border-color: var(--primary); outline: none;}
+/* CONTAINER & BACKGROUND */
+.admin-dashboard-container {
+  padding: 2.5rem;
+  min-height: 100vh;
+  background: #0f172a; /* Deep Navy Dark Mode */
+  position: relative;
+  overflow: hidden;
 }
 
-table {
-  width: 100%;
+.dashboard-glow {
+  position: absolute;
+  top: -10%; right: -10%;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+  filter: blur(80px);
+  z-index: 0;
+}
+
+.page-title {
+  font-size: 2.25rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+/* GLASSMORPHIC CARDS */
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+/* INPUT STYLING */
+.glass-input {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: white !important;
+  padding: 0.75rem;
+  
+  &:focus {
+    border-color: #6366f1 !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2) !important;
+  }
+}
+
+/* TABLE STYLING */
+.glass-table {
   border-collapse: collapse;
-  th { border-bottom: 1px solid var(--border-color); font-weight: 600; font-size: 0.875rem; color: var(--text-muted); padding: 1rem; }
-  td { border-bottom: 1px solid var(--border-color); padding: 1rem; vertical-align: middle; }
-  tr.hover-bg:hover { background-color: rgba(0,0,0,0.015); cursor: pointer; transition: background-color 0.2s; }
-  tr.bg-gray-50 { background-color: #f9fafb; font-weight: bold; font-family: 'Inter', sans-serif; }
+  
+  th {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .border-b-dark {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .hover-bg-dark:hover {
+    background: rgba(99, 102, 241, 0.05);
+    cursor: default;
+  }
 }
 
-.badge { display: inline-block; padding: 0.35rem 0.6rem; border-radius: 9999px; font-weight: 600; font-size: 0.75em; text-transform: uppercase; letter-spacing: 0.5px;
-  &.badge-success { background: rgba(16, 185, 129, 0.15); color: #065F46; }
-  &.badge-warning { background: rgba(245, 158, 11, 0.15); color: #92400E; }
-  &.badge-danger { background: rgba(239, 68, 68, 0.15); color: #991B1B; }
+.bg-glass-footer {
+  background: rgba(255, 255, 255, 0.02);
 }
+
+/* BADGES & PILLS */
+.badge {
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  
+  &.badge-success { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+  &.badge-warning { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+  &.badge-danger  { background: rgba(239, 68, 68, 0.15);  color: #f87171; }
+}
+
+/* EKG HEARTBEAT FOOTER */
+.report-heartbeat-footer {
+  margin-top: 5rem;
+  width: 100%;
+  height: 60px;
+  opacity: 0.15;
+}
+
+.ekg-line-slow {
+  fill: none;
+  stroke: #818cf8;
+  stroke-width: 2;
+  stroke-dasharray: 2000;
+  stroke-dashoffset: 2000;
+  animation: drawEkg 7s linear infinite; /* Slower rhythm for analytical reports */
+}
+
+@keyframes drawEkg {
+  0% { stroke-dashoffset: 2000; }
+  100% { stroke-dashoffset: -2000; }
+}
+
+/* UTILITIES */
+.btn-outline-light {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  &:hover { background: rgba(255, 255, 255, 0.05); }
+}
+
+.text-muted-light { color: #94a3b8; }

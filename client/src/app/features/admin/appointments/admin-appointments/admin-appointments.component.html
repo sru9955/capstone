@@ -1,73 +1,92 @@
-<div class="page-header fade-in">
-  <div>
-    <h1 class="page-title">Appointment Reports</h1>
-    <p class="page-subtitle">Filter and analyze appointments across all domains by Date Range.</p>
+<div class="admin-dashboard-container fade-in">
+  <div class="dashboard-glow"></div>
+  
+  <div class="page-header mb-5">
+    <div>
+      <h1 class="page-title text-white">Appointment Reports</h1>
+      <p class="page-subtitle text-muted-light">Filter and analyze appointments across all domains by Date Range.</p>
+    </div>
   </div>
-</div>
 
-<div class="card p-4 mb-4 fade-in" style="animation-delay: 0.1s;">
-  <form [formGroup]="dateForm" (ngSubmit)="filterResults()" class="grid-3 items-end">
-    <div class="form-group mb-0">
-      <label class="form-label text-sm font-semibold">Start Date</label>
-      <input type="date" formControlName="startDate" class="form-control">
-    </div>
-    
-    <div class="form-group mb-0">
-      <label class="form-label text-sm font-semibold">End Date</label>
-      <input type="date" formControlName="endDate" class="form-control">
-    </div>
-    
-    <div class="flex gap-2">
-      <button type="submit" class="btn btn-primary flex-1" [disabled]="isLoading">
-        <span *ngIf="!isLoading">Filter Dates</span>
-        <span *ngIf="isLoading" class="btn-spinner"></span>
-      </button>
-      <button type="button" class="btn btn-outline" (click)="resetFilter()">Clear</button>
-    </div>
-  </form>
-</div>
+  <div class="card glass-card p-4 mb-4 fade-in" style="animation-delay: 0.1s;">
+    <form [formGroup]="dateForm" (ngSubmit)="filterResults()" class="grid-3 items-end">
+      <div class="form-group mb-0">
+        <label class="form-label text-sm font-semibold text-white">Start Date</label>
+        <input type="date" formControlName="startDate" class="form-control glass-input">
+      </div>
+      
+      <div class="form-group mb-0">
+        <label class="form-label text-sm font-semibold text-white">End Date</label>
+        <input type="date" formControlName="endDate" class="form-control glass-input">
+      </div>
+      
+      <div class="flex gap-2">
+        <button type="submit" class="btn btn-primary shadow-3d flex-1" [disabled]="isLoading">
+          <span *ngIf="!isLoading">Filter Dates</span>
+          <span *ngIf="isLoading" class="btn-spinner"></span>
+        </button>
+        <button type="button" class="btn btn-outline-light" (click)="resetFilter()">Clear</button>
+      </div>
+    </form>
+  </div>
 
-<div class="card p-0 fade-in table-container" style="animation-delay: 0.2s;">
-  <table *ngIf="appointments.length > 0; else noData" class="w-full text-left">
-    <thead>
-      <tr>
-        <th class="border-bottom p-4 text-sm font-semibold text-gray-500">ID</th>
-        <th class="border-bottom p-4 text-sm font-semibold text-gray-500">Date/Time</th>
-        <th class="border-bottom p-4 text-sm font-semibold text-gray-500">Patient</th>
-        <th class="border-bottom p-4 text-sm font-semibold text-gray-500">Doctor/Specialty</th>
-        <th class="border-bottom p-4 text-sm font-semibold text-gray-500">Fee (₹)</th>
-        <th class="border-bottom p-4 text-sm font-semibold text-gray-500">Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let apt of appointments" class="border-bottom hover-bg">
-        <td class="p-4">#{{$any(apt).id}}</td>
-        <td class="p-4">{{$any(apt).appointmentTime | date:'MMM d, y, h:mm a'}}</td>
-        <td class="p-4 font-bold">{{$any(apt).patient?.name || 'N/A'}}</td>
-        <td class="p-4 font-bold text-primary">Dr. {{$any(apt).doctor?.name || 'N/A'}} <span class="text-sm font-normal text-muted block">{{$any(apt).doctor?.specialty}}</span></td>
-        <td class="p-4">${{($any(apt).fee || 0) | number:'1.2-2'}}</td>
-        <td class="p-4">
-          <span class="badge" 
-            [ngClass]="{
-              'badge-success': ['COMPLETED','Completed'].includes($any(apt).status),
-              'badge-warning': ['SCHEDULED','Pending','RESCHEDULED','Rescheduled'].includes($any(apt).status),
-              'badge-danger': ['CANCELLED','Cancelled'].includes($any(apt).status)
-            }">
-            {{apt.status}}
-          </span>
-        </td>
-      </tr>
-      <tr class="bg-gray-50">
-        <td colspan="4" class="p-4 text-right font-bold text-gray-600">Total Filtered Volume</td>
-        <td colspan="2" class="p-4 font-bold text-lg text-primary">{{appointments.length}} Appointments</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <ng-template #noData>
-    <div class="p-4 text-center block text-muted py-5" *ngIf="!isLoading">
-      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mx-auto mb-3 text-gray-300"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
-      <p>No appointments match the given Date Range.</p>
+  <div class="card glass-card p-0 fade-in table-container" style="animation-delay: 0.2s;">
+    <div class="table-responsive">
+      <table *ngIf="appointments.length > 0; else noData" class="glass-table w-full text-left">
+        <thead>
+          <tr>
+            <th class="p-4 text-xs font-bold text-indigo-400 uppercase tracking-wider">ID</th>
+            <th class="p-4 text-xs font-bold text-indigo-400 uppercase tracking-wider">Date/Time</th>
+            <th class="p-4 text-xs font-bold text-indigo-400 uppercase tracking-wider">Patient</th>
+            <th class="p-4 text-xs font-bold text-indigo-400 uppercase tracking-wider">Doctor/Specialty</th>
+            <th class="p-4 text-xs font-bold text-indigo-400 uppercase tracking-wider">Fee (₹)</th>
+            <th class="p-4 text-xs font-bold text-indigo-400 uppercase tracking-wider">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let apt of appointments" class="hover-bg-dark border-b-dark">
+            <td class="p-4 text-muted-light">#{{$any(apt).id}}</td>
+            <td class="p-4 text-white">{{$any(apt).appointmentTime | date:'MMM d, y, h:mm a'}}</td>
+            <td class="p-4 font-bold text-white">{{$any(apt).patient?.name || 'N/A'}}</td>
+            <td class="p-4">
+              <span class="font-bold text-indigo-200">Dr. {{$any(apt).doctor?.name || 'N/A'}}</span>
+              <span class="text-xs font-normal text-muted-light block">{{$any(apt).doctor?.specialty}}</span>
+            </td>
+            <td class="p-4 text-white">₹{{($any(apt).fee || 0) | number:'1.2-2'}}</td>
+            <td class="p-4">
+              <span class="badge" 
+                [ngClass]="{
+                  'badge-success': ['COMPLETED','Completed'].includes($any(apt).status),
+                  'badge-warning': ['SCHEDULED','Pending','RESCHEDULED','Rescheduled'].includes($any(apt).status),
+                  'badge-danger': ['CANCELLED','Cancelled'].includes($any(apt).status)
+                }">
+                {{apt.status}}
+              </span>
+            </td>
+          </tr>
+          <tr class="bg-glass-footer">
+            <td colspan="4" class="p-4 text-right font-bold text-muted-light">Total Filtered Volume</td>
+            <td colspan="2" class="p-4 font-bold text-lg text-indigo-300">{{appointments.length}} Appointments</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-  </ng-template>
+
+    <ng-template #noData>
+      <div class="p-4 text-center block text-muted-light py-5" *ngIf="!isLoading">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="mx-auto mb-3 opacity-30">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="17 8 12 3 7 8"></polyline>
+          <line x1="12" y1="3" x2="12" y2="15"></line>
+        </svg>
+        <p>No appointments match the given Date Range.</p>
+      </div>
+    </ng-template>
+  </div>
+
+  <div class="report-heartbeat-footer">
+    <svg viewBox="0 0 1000 100" preserveAspectRatio="none">
+      <path class="ekg-line-slow" d="M0,50 L300,50 L320,20 L360,80 L390,10 L420,70 L440,50 L1000,50"></path>
+    </svg>
+  </div>
 </div>

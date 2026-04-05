@@ -1,18 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 @Component({
-  selector: 'app-landing', // Fixed selector
-  templateUrl: './landing.component.html', // Fixed filename!
-  styleUrls: ['./landing.component.scss'] // Fixed filename!
+  selector: 'app-landing',
+  templateUrl: './landing.component.html',
+  styleUrls: ['./landing.component.scss']
 })
 export class LandingPageComponent implements OnInit, OnDestroy {
-  // Chatbot toggle
-  isChatOpen = false;
-
-  // Carousel variables
   currentSlide = 0;
   autoPlayInterval: any;
 
+  // RESTORED: Your original Health Tips
   healthTips = [
     {
       image: 'https://images.unsplash.com/photo-1523362628745-0c100150b504?auto=format&fit=crop&w=800&q=80',
@@ -54,12 +51,11 @@ export class LandingPageComponent implements OnInit, OnDestroy {
     this.stopAutoPlay();
   }
 
-  // Opens and closes the chatbot component
-  toggleChat() {
-    this.isChatOpen = !this.isChatOpen;
+  // Sends a global signal to open the chatbot
+  openChat() {
+    window.dispatchEvent(new Event('openChat'));
   }
 
-  // Carousel Logic
   startAutoPlay() {
     this.autoPlayInterval = setInterval(() => {
       this.nextSlide();

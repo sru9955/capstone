@@ -4,6 +4,22 @@
 
   <header class="hero">
     <div class="hero-bg-glow"></div>
+    
+    <div class="heartbeat-bg">
+      <svg viewBox="0 0 1000 150" preserveAspectRatio="none">
+        <path class="ekg-line" d="M0,75 L300,75 L320,40 L360,130 L390,20 L420,110 L440,75 L1000,75"></path>
+      </svg>
+    </div>
+
+    <div class="floating-particles">
+      <div class="particle p1">+</div>
+      <div class="particle p2">+</div>
+      <div class="particle p3">+</div>
+      <div class="particle p4">+</div>
+      <div class="particle p5">+</div>
+      <div class="particle p6">+</div>
+    </div>
+
     <div class="container hero-container">
       <div class="hero-content">
         <div class="badge">Next-Gen Healthcare</div>
@@ -11,16 +27,15 @@
         <p>A seamless, secure, and professional system connecting administrators, doctors, receptionists, and patients in a centralized ecosystem.</p>
         <div class="hero-actions">
           <a href="#roles" class="btn btn-primary shadow-3d">Access Your Portal</a>
-          
-          <button type="button" class="btn btn-secondary glass" (click)="myChatbot.isOpen = true">Chat with AI Assistant</button>
-        
-        </div>
+          </div>
       </div>
       
       <div class="hero-carousel-wrapper floating">
         <div class="carousel-container" (mouseenter)="stopAutoPlay()" (mouseleave)="startAutoPlay()">
+          
           <button class="nav-btn prev-btn" (click)="prevSlide()">&#10094;</button>
           <button class="nav-btn next-btn" (click)="nextSlide()">&#10095;</button>
+
           <div class="carousel-track" [style.transform]="'translateX(-' + (currentSlide * 100) + '%)'">
             <div class="carousel-slide" *ngFor="let tip of healthTips; let i = index">
               <img [src]="tip.image" [alt]="tip.title">
@@ -31,12 +46,14 @@
               </div>
             </div>
           </div>
+
           <div class="carousel-dots">
             <span class="dot" *ngFor="let tip of healthTips; let i = index" 
                   [class.active]="i === currentSlide" 
                   (click)="goToSlide(i)">
             </span>
           </div>
+          
         </div>
       </div>
     </div>
@@ -44,28 +61,55 @@
 
   <section id="overview" class="services section">
     <div class="container">
-      <h2 class="section-title">System Overview</h2>
+      <h2 class="section-title fade-in-up">System Overview</h2>
+      
       <div class="grid-3">
-        <div class="card card-3d">
-          <div class="card-icon glass-icon">
+        <div class="card card-3d fade-in-up stagger-1">
+          <div class="card-icon glass-icon idle-float">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          </div>
+          <h3>Smart Scheduling</h3>
+          <p>Seamlessly book, reschedule, and manage appointments synced directly with real-time doctor availability.</p>
+        </div>
+
+        <div class="card card-3d fade-in-up stagger-2">
+          <div class="card-icon glass-icon idle-float">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          </div>
+          <h3>Electronic Medical Records</h3>
+          <p>Maintain centralized, secure patient histories, diagnostic file attachments, and digital prescriptions.</p>
+        </div>
+
+        <div class="card card-3d fade-in-up stagger-3">
+          <div class="card-icon glass-icon idle-float">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          </div>
+          <h3>AI Healthcare Assistant</h3>
+          <p>An intelligent, integrated chatbot that assists patients 24/7 with appointment bookings and queries.</p>
+        </div>
+
+        <div class="card card-3d fade-in-up stagger-1">
+          <div class="card-icon glass-icon idle-float">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+          </div>
+          <h3>Live Notifications</h3>
+          <p>Instant Server-Sent Events (SSE) keep staff and patients instantly updated on status changes and alerts.</p>
+        </div>
+
+        <div class="card card-3d fade-in-up stagger-2">
+          <div class="card-icon glass-icon idle-float">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+          </div>
+          <h3>Role-Based Dashboards</h3>
+          <p>Dedicated, metrics-driven portal environments tailored for Admins, Doctors, Receptionists, and Patients.</p>
+        </div>
+
+        <div class="card card-3d fade-in-up stagger-3">
+          <div class="card-icon glass-icon idle-float">
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
           </div>
-          <h3>Secure Records</h3>
-          <p>End-to-end encrypted medical histories ensure patient data confidentiality.</p>
-        </div>
-        <div class="card card-3d">
-          <div class="card-icon glass-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-          </div>
-          <h3>Real-time Updates</h3>
-          <p>Instant synchronization utilizing seamless server-sent events.</p>
-        </div>
-        <div class="card card-3d">
-          <div class="card-icon glass-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"></line><line x1="18" y1="20" x2="18" y2="4"></line><line x1="6" y1="20" x2="6" y2="16"></line></svg>
-          </div>
-          <h3>Advanced Analytics</h3>
-          <p>Comprehensive revenue tracking and metrics for administration.</p>
+          <h3>Enterprise Security</h3>
+          <p>JWT authentication and strict backend access controls ensure patient data privacy and system integrity.</p>
         </div>
       </div>
     </div>
@@ -73,34 +117,41 @@
 
   <section id="roles" class="roles section bg-dark">
     <div class="container">
-      <h2 class="section-title text-white">Access Portals</h2>
+      <h2 class="section-title text-white fade-in-up">Access Portals</h2>
       <div class="grid-4">
-        <div class="card card-3d dark-card role-card">
-          <h3>Patient</h3>
+        <div class="card card-3d dark-card role-card fade-in-up stagger-1">
+          <h3 style="display: flex; align-items: center; gap: 8px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            Patient
+          </h3>
           <p>Book appointments and view your records.</p>
           <button class="btn btn-outline sm mt-3" routerLink="/login" [queryParams]="{role: 'PATIENT'}">Login</button>
         </div>
-        <div class="card card-3d dark-card role-card">
-          <h3>Doctor</h3>
+        <div class="card card-3d dark-card role-card fade-in-up stagger-2">
+          <h3 style="display: flex; align-items: center; gap: 8px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+            Doctor
+          </h3>
           <p>Manage your schedule and health records.</p>
           <button class="btn btn-outline sm mt-3" routerLink="/login" [queryParams]="{role: 'DOCTOR'}">Login</button>
         </div>
-        <div class="card card-3d dark-card role-card">
-          <h3>Receptionist</h3>
+        <div class="card card-3d dark-card role-card fade-in-up stagger-3">
+          <h3 style="display: flex; align-items: center; gap: 8px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            Receptionist
+          </h3>
           <p>Confirm appointments and oversee queues.</p>
           <button class="btn btn-outline sm mt-3" routerLink="/login" [queryParams]="{role: 'RECEPTIONIST'}">Login</button>
         </div>
-        <div class="card card-3d dark-card role-card">
-          <h3>Admin</h3>
+        <div class="card card-3d dark-card role-card fade-in-up stagger-4">
+          <h3 style="display: flex; align-items: center; gap: 8px;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            Admin
+          </h3>
           <p>Oversee hospital operations and staff.</p>
           <button class="btn btn-outline sm mt-3" routerLink="/login" [queryParams]="{role: 'ADMIN'}">Login</button>
         </div>
       </div>
     </div>
   </section>
-
-  <div style="position: fixed; bottom: 30px; right: 30px; z-index: 9999;">
-    <app-chatbot #myChatbot></app-chatbot>
-  </div>
-
 </div>

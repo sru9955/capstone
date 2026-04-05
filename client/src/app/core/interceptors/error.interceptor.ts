@@ -18,14 +18,22 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
         let message = 'Something went wrong. Please try again.';
+        
         if (error.status === 0) {
           message = 'Cannot connect to server. Please check backend is running.';
         } else if (error.status === 400) {
           message = error.error?.message || 'Invalid request. Please check your inputs.';
         } else if (error.status === 401) {
-          message = 'Session expired. Please login again.';
-          this.auth.logout();
-          this.router.navigate(['/login']);
+          
+          // ✅ THE FIX: Differentiate between a failed login and an expired session!
+          if (request.url.includes('/login')) {
+            message = 'Invalid username or password.';
+          } else {
+            message = 'Session expired. Please login again.';
+            this.auth.logout();
+            this.router.navigate(['/login']);
+          }
+          
         } else if (error.status === 403) {
           if (request.url.includes('/api/notifications')) {
              return throwError(() => error); // Suppress popup for background polling
@@ -36,6 +44,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         } else if (error.status === 500) {
           message = error.error?.message || 'Server error. Please try again later.';
         }
+        
         console.error('HTTP Error:', error);
         this.alert.error(message);
         return throwError(() => error);
