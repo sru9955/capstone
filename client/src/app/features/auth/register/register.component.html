@@ -17,7 +17,7 @@
   </div>
 
   <a routerLink="/" class="back-to-home-btn">
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
       <line x1="19" y1="12" x2="5" y2="12"></line>
       <polyline points="12 19 5 12 12 5"></polyline>
     </svg>
@@ -34,8 +34,8 @@
     <div class="role-selector">
       <div *ngFor="let role of roles" class="role-card"
            [class.selected]="selectedRole === role.value"
-           (click)="selectRole(role.value)" [id]="'role-' + role.value.toLowerCase()">
-        <img [src]="role.icon" [alt]="role.label" class="role-card-icon-img">
+           (click)="selectRole(role.value)">
+        <img [src]="role.icon" class="role-card-icon-img">
         <span class="role-card-label">{{ role.label }}</span>
         <span class="role-card-desc">{{ role.desc }}</span>
       </div>
@@ -43,78 +43,113 @@
 
     <div class="auth-card glass">
       <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        
         <div class="form-row">
           <div class="form-group">
             <label class="form-label">Full Name</label>
             <input type="text" class="form-control" formControlName="name"
-                   [class.is-invalid]="f['name'].invalid && f['name'].touched"
-                   placeholder="Dr. John Doe" id="reg-name">
-            <div class="invalid-feedback" *ngIf="f['name'].invalid && f['name'].touched">Full name is required</div>
+                   [class.is-invalid]="f['name'].invalid && f['name'].touched">
+            <div class="invalid-feedback" *ngIf="f['name'].invalid && f['name'].touched">
+              Full name is required
+            </div>
           </div>
+
           <div class="form-group">
             <label class="form-label">Username</label>
             <input type="text" class="form-control" formControlName="username"
-                   [class.is-invalid]="f['username'].invalid && f['username'].touched"
-                   placeholder="johndoe" id="reg-username">
-            <div class="invalid-feedback" *ngIf="f['username'].invalid && f['username'].touched">3-50 characters required</div>
+                   [class.is-invalid]="f['username'].invalid && f['username'].touched">
+            <div class="invalid-feedback" *ngIf="f['username'].invalid && f['username'].touched">
+              3-50 characters required
+            </div>
           </div>
         </div>
 
         <div class="form-row">
+
           <div class="form-group">
             <label class="form-label">Email</label>
             <input type="email" class="form-control" formControlName="email"
-                   [class.is-invalid]="f['email'].invalid && f['email'].touched"
-                   placeholder="john@example.com" id="reg-email">
-            <div class="invalid-feedback" *ngIf="f['email'].invalid && f['email'].touched">Valid email required</div>
+                   [class.is-invalid]="f['email'].invalid && f['email'].touched">
+            <div class="invalid-feedback" *ngIf="f['email'].invalid && f['email'].touched">
+              Valid email required
+            </div>
           </div>
+
+          <!-- UPDATED PASSWORD SECTION -->
           <div class="form-group">
             <label class="form-label">Password</label>
-            <input [type]="showPassword ? 'text' : 'password'" class="form-control" formControlName="password"
-                   [class.is-invalid]="f['password'].invalid && f['password'].touched"
-                   placeholder="Min 6 characters" id="reg-password">
-            <div class="invalid-feedback" *ngIf="f['password'].invalid && f['password'].touched">At least 6 characters</div>
+
+            <input [type]="showPassword ? 'text' : 'password'"
+                   class="form-control"
+                   formControlName="password"
+                   placeholder="Minimum 8 characters">
+
+            <div class="password-dropdown">
+
+              <div class="title">Password must contain:</div>
+
+              <div class="rule" [class.valid]="hasMinLength()">
+                <span class="icon">{{ hasMinLength() ? '✔' : '✖' }}</span>
+                Minimum 8 characters
+              </div>
+
+              <div class="rule" [class.valid]="hasUpperCase()">
+                <span class="icon">{{ hasUpperCase() ? '✔' : '✖' }}</span>
+                One uppercase letter
+              </div>
+
+              <div class="rule" [class.valid]="hasLowerCase()">
+                <span class="icon">{{ hasLowerCase() ? '✔' : '✖' }}</span>
+                One lowercase letter
+              </div>
+
+              <div class="rule" [class.valid]="hasNumber()">
+                <span class="icon">{{ hasNumber() ? '✔' : '✖' }}</span>
+                One number
+              </div>
+
+              <div class="rule" [class.valid]="hasSpecialChar()">
+                <span class="icon">{{ hasSpecialChar() ? '✔' : '✖' }}</span>
+                One special character
+              </div>
+
+            </div>
           </div>
+
         </div>
 
         <div class="form-row">
           <div class="form-group">
-            <label class="form-label">Phone (Optional)</label>
-            <input type="text" class="form-control" formControlName="phone" placeholder="+91 9876543210" id="reg-phone">
+            <label class="form-label">Phone</label>
+            <input type="text" class="form-control" formControlName="phone">
           </div>
+
           <div class="form-group" *ngIf="selectedRole === 'PATIENT'">
-            <label class="form-label">Address (Optional)</label>
-            <input type="text" class="form-control" formControlName="address" placeholder="123 Main St" id="reg-address">
+            <label class="form-label">Address</label>
+            <input type="text" class="form-control" formControlName="address">
           </div>
         </div>
 
         <div *ngIf="selectedRole === 'DOCTOR'" class="doctor-fields">
-          <div class="doctor-fields-header">
-            <span>👨‍⚕️ Doctor Information</span>
-          </div>
           <div class="form-row">
             <div class="form-group">
-              <label class="form-label">Specialty *</label>
-              <select class="form-control" formControlName="specialty"
-                      [class.is-invalid]="f['specialty'].invalid && f['specialty'].touched" id="reg-specialty">
-                <option value="">Select Specialty</option>
+              <label>Specialty</label>
+              <select class="form-control" formControlName="specialty">
+                <option value="">Select</option>
                 <option *ngFor="let s of specialties" [value]="s">{{ s }}</option>
               </select>
-              <div class="invalid-feedback" *ngIf="f['specialty'].invalid && f['specialty'].touched">Specialty required for doctors</div>
             </div>
+
             <div class="form-group">
-              <label class="form-label">Availability *</label>
-              <input type="text" class="form-control" formControlName="availability"
-                     [class.is-invalid]="f['availability'].invalid && f['availability'].touched"
-                     placeholder="Mon-Fri 9AM-5PM" id="reg-availability">
-              <div class="invalid-feedback" *ngIf="f['availability'].invalid && f['availability'].touched">Availability required</div>
+              <label>Availability</label>
+              <input type="text" class="form-control" formControlName="availability">
             </div>
           </div>
         </div>
 
         <div class="submit-wrapper">
-          <button type="submit" class="btn btn-primary reg-submit-btn" [disabled]="isLoading" id="reg-submit">
-            <span *ngIf="isLoading" class="btn-spinner"></span>
+          <button type="submit" class="btn btn-primary reg-submit-btn"
+                  [disabled]="isLoading">
             {{ isLoading ? 'Registering...' : 'Create Account' }}
           </button>
         </div>

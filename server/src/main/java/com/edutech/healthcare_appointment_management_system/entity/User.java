@@ -7,7 +7,7 @@ import javax.persistence.*;
 @DiscriminatorColumn(
     name = "dtype",
     discriminatorType = DiscriminatorType.STRING,
-    length=50
+    length = 50
 )
 @Table(name = "users")
 public class User {
@@ -28,16 +28,20 @@ public class User {
     @Column(nullable = false)
     private String role; // PATIENT, DOCTOR, RECEPTIONIST, ADMIN
 
+    @Column(name = "full_name", nullable = false)
+    private String fullName;   // ✅ ADDED FIELD
+
     private String profileImageUrl;
 
     public User() {}
 
-    public User(Long id, String username, String password, String email, String role, String profileImageUrl) {
+    public User(Long id, String username, String password, String email, String role, String fullName, String profileImageUrl) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.email = email;
         this.role = role;
+        this.fullName = fullName;  // ✅ ADDED
         this.profileImageUrl = profileImageUrl;
     }
 
@@ -85,6 +89,14 @@ public class User {
         this.role = role;
     }
 
+    public String getFullName() {   // ✅ ADDED
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {   // ✅ ADDED
+        this.fullName = fullName;
+    }
+
     public String getProfileImageUrl() {
         return profileImageUrl;
     }
@@ -99,6 +111,7 @@ public class User {
         private String password;
         private String email;
         private String role;
+        private String fullName;   // ✅ ADDED
         private String profileImageUrl;
 
         public UserBuilder id(Long id) {
@@ -126,13 +139,18 @@ public class User {
             return this;
         }
 
+        public UserBuilder fullName(String fullName) {   
+            this.fullName = fullName;
+            return this;
+        }
+
         public UserBuilder profileImageUrl(String profileImageUrl) {
             this.profileImageUrl = profileImageUrl;
             return this;
         }
 
         public User build() {
-            return new User(id, username, password, email, role, profileImageUrl);
+            return new User(id, username, password, email, role, fullName, profileImageUrl);
         }
     }
 }
