@@ -7,6 +7,7 @@
   position: relative;
   overflow: hidden;
 }
+
 .bg-orb {
   position: absolute;
   border-radius: 50%;
@@ -41,7 +42,7 @@
   color: #ffffff;
   background: rgba(99, 102, 241, 0.2);
   border-color: #6366f1;
-  transform: translateX(-4px); 
+  transform: translateX(-4px);
 }
 
 .auth-container { width: 100%; max-width: 440px; padding: 1.5rem; position: relative; z-index: 1; }
@@ -115,7 +116,7 @@ input[type="password"]::-ms-clear {
 .auth-footer a:hover { color: #6366f1; text-decoration: underline; }
 
 /* MOBILE RESPONSIVE FOR BACK BUTTON */
-@media (max-width: 480px) {
+@media (max-width: 600px) {
   .back-to-home-btn {
     top: 15px;
     left: 15px;
