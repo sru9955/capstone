@@ -167,10 +167,14 @@
   .reg-submit-btn { width: 100%; }
 }
 
-.doctor-fields { 
-  border: 1px solid rgba(99,102,241,0.3); 
-  border-radius: 12px; 
-  padding: 1.25rem; 
+.doctor-fields .form-label,
+.doctor-fields label {
+  font-family: inherit;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #94a3b8;
 }
 
 .auth-footer { text-align: center; margin-top: 2rem; }

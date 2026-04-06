@@ -25,7 +25,7 @@
   </a>
 
   <div class="auth-container wide fade-in">
-    
+
     <div class="auth-logo">
       <h1>Create Account</h1>
       <p>Join the Healthcare Management System</p>
@@ -43,23 +43,30 @@
 
     <div class="auth-card glass">
       <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-        
+
         <div class="form-row">
           <div class="form-group">
             <label class="form-label">Full Name</label>
-            <input type="text" class="form-control" formControlName="name"
-                   [class.is-invalid]="f['name'].invalid && f['name'].touched">
-            <div class="invalid-feedback" *ngIf="f['name'].invalid && f['name'].touched">
+            <input type="text"
+                   class="form-control"
+                   formControlName="name"
+                   [class.is-invalid]="shouldShowError('name')">
+            <div class="invalid-feedback" *ngIf="hasError('name', 'required')">
               Full name is required
             </div>
           </div>
 
           <div class="form-group">
             <label class="form-label">Username</label>
-            <input type="text" class="form-control" formControlName="username"
-                   [class.is-invalid]="f['username'].invalid && f['username'].touched">
-            <div class="invalid-feedback" *ngIf="f['username'].invalid && f['username'].touched">
-              3-50 characters required
+            <input type="text"
+                   class="form-control"
+                   formControlName="username"
+                   [class.is-invalid]="shouldShowError('username')">
+            <div class="invalid-feedback" *ngIf="shouldShowError('username')">
+              <ng-container *ngIf="hasError('username', 'required')">Username is required</ng-container>
+              <ng-container *ngIf="hasError('username', 'minlength') || hasError('username', 'maxlength')">
+                3-50 characters required
+              </ng-container>
             </div>
           </div>
         </div>
@@ -68,24 +75,29 @@
 
           <div class="form-group">
             <label class="form-label">Email</label>
-            <input type="email" class="form-control" formControlName="email"
-                   [class.is-invalid]="f['email'].invalid && f['email'].touched">
-            <div class="invalid-feedback" *ngIf="f['email'].invalid && f['email'].touched">
-              Valid email required
+            <input type="email"
+                   class="form-control"
+                   formControlName="email"
+                   [class.is-invalid]="shouldShowError('email')">
+            <div class="invalid-feedback" *ngIf="shouldShowError('email')">
+              <ng-container *ngIf="hasError('email', 'required')">Email is required</ng-container>
+              <ng-container *ngIf="hasError('email', 'email')">Valid email required</ng-container>
             </div>
           </div>
 
-          <!-- UPDATED PASSWORD SECTION -->
           <div class="form-group">
             <label class="form-label">Password</label>
 
             <input [type]="showPassword ? 'text' : 'password'"
                    class="form-control"
                    formControlName="password"
-                   placeholder="Minimum 8 characters">
+                   placeholder="Minimum 8 characters"
+                   [class.is-invalid]="shouldShowError('password')"
+                   (focus)="onPasswordFocus()"
+                   (blur)="onPasswordBlur()"
+                   (input)="onPasswordInput()">
 
-            <div class="password-dropdown">
-
+            <div class="password-dropdown" *ngIf="showRules">
               <div class="title">Password must contain:</div>
 
               <div class="rule" [class.valid]="hasMinLength()">
@@ -112,8 +124,8 @@
                 <span class="icon">{{ hasSpecialChar() ? '✔' : '✖' }}</span>
                 One special character
               </div>
-
             </div>
+
           </div>
 
         </div>
@@ -134,21 +146,33 @@
           <div class="form-row">
             <div class="form-group">
               <label>Specialty</label>
-              <select class="form-control" formControlName="specialty">
+              <select class="form-control"
+                      formControlName="specialty"
+                      [class.is-invalid]="shouldShowError('specialty')">
                 <option value="">Select</option>
                 <option *ngFor="let s of specialties" [value]="s">{{ s }}</option>
               </select>
+              <div class="invalid-feedback" *ngIf="hasError('specialty', 'required')">
+                Specialty is required
+              </div>
             </div>
 
             <div class="form-group">
               <label>Availability</label>
-              <input type="text" class="form-control" formControlName="availability">
+              <input type="text"
+                     class="form-control"
+                     formControlName="availability"
+                     [class.is-invalid]="shouldShowError('availability')">
+              <div class="invalid-feedback" *ngIf="hasError('availability', 'required')">
+                Availability is required
+              </div>
             </div>
           </div>
         </div>
 
         <div class="submit-wrapper">
-          <button type="submit" class="btn btn-primary reg-submit-btn"
+          <button type="submit"
+                  class="btn btn-primary reg-submit-btn"
                   [disabled]="isLoading">
             {{ isLoading ? 'Registering...' : 'Create Account' }}
           </button>
